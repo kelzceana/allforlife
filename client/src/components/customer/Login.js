@@ -5,12 +5,10 @@ import "./Login.css";
 import { Redirect } from "react-router-dom";
 
 
-
 export default function Login(props) {
 
     const [formValues, setFormValues] = useState({
         userName: "",
-        email: "",
         password: ""
     });
     const [error, setError] = useState("");
@@ -33,25 +31,14 @@ export default function Login(props) {
                     } else {
                         setError("");
                         console.log(res.data)
-            setError("Email or password cannot be blank !")
-        } else {
-            axios.post(`http://localhost:8010/api/login`,
-             { email : formValues.email, password :formValues.password}).then(res =>{
-                if(res.data.length <= 0){
-                    setError("Email or password is incorrect !")
-                    } else {
-                        setError("");
                         props.setUser(res.data)
                         setLoggedIn(true);
                 } 
-            });      
+            })
         }
     }
 
-
     return !loggedIn ?(
-
-    return (
         <div className="login-container">
             <div className="login">  
                 <form className="login-form" onSubmit={event => event.preventDefault()} >
@@ -61,9 +48,6 @@ export default function Login(props) {
                     </div>}
                     <h3>Username:</h3>
                     <input type="text" name="userName" value ={formValues.userName} onChange = {handleChange}  placeholder="Username"/>
-
-                    <h3>Email:</h3>
-                    <input type="text" name="email" value ={formValues.email} onChange = {handleChange}  placeholder="Email"/>
                     <h3>Password:</h3>
                     <input type="password" name="password" value= {formValues.password} onChange = {handleChange}  placeholder="Password"/>
                     <br/>
@@ -73,7 +57,3 @@ export default function Login(props) {
         </div>
     ): <Redirect to='/'></Redirect>;
 }
-    )
-    
-}
-
