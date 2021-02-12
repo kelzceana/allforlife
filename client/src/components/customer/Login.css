@@ -1,12 +1,28 @@
+<<<<<<< HEAD
 .login {
   margin:80px 70px;
   max-width:500px;
   margin-bottom: 130px;
+=======
+body {
+   
+  margin:0px;
+  font-family: 'Ubuntu', sans-serif;
+    background-size: 100% 100%;
+}
+h1, h2, h3, h4, h5, h6, a {
+  margin:0; padding:0;
+}
+.login {
+  margin:80px 70px;
+  max-width:500px;
+>>>>>>> 9c718e73a37e0c31af401e6fcd16c41f434d300d
 }
 
 
 .login-container{
   border: solid 2px black;
+<<<<<<< HEAD
   background-image: url('../../images/woman_big-min.png');
   background-size: cover;
   width: 100%;
@@ -17,6 +33,16 @@
   margin-top: 10px;
 }
 
+=======
+  background-image: url('woman_big-min.png');
+  background-size: cover;
+  width: 100%;
+
+}
+
+
+
+>>>>>>> 9c718e73a37e0c31af401e6fcd16c41f434d300d
 .login-form {
   border:.5px solid rgb(119, 117, 117);
   background:#eaecee;
@@ -98,4 +124,8 @@
   outline:none;
   padding-left:5px;
 }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9c718e73a37e0c31af401e6fcd16c41f434d300d

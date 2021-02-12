@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import "./Header.css";
 
@@ -23,3 +24,14 @@ export default function Header(props) {
       </nav>
     );
 }
+=======
+import "./Header.css";
+
+export default function Header(props) {
+
+    return (
+      <header className="header-container">    
+      </header>
+    );
+}
+>>>>>>> 9c718e73a37e0c31af401e6fcd16c41f434d300d

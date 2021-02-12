@@ -74,11 +74,14 @@ h1, h2, h3, h4, h5, h6, a {
   border:2px solid black;
 }
 
+<<<<<<< HEAD
 .alert-error{
   margin-top: 10px;
   color: red;
 }
 
+=======
+>>>>>>> 9c718e73a37e0c31af401e6fcd16c41f434d300d
 
 
 
@@ -110,4 +113,8 @@ h1, h2, h3, h4, h5, h6, a {
   outline:none;
   padding-left:5px;
 }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9c718e73a37e0c31af401e6fcd16c41f434d300d

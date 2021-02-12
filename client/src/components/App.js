@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from './Header';
@@ -46,3 +47,16 @@ function App() {
 }
 
 export default App;
+=======
+import Header from './Header';
+
+
+
+function App() {
+  return (
+   <Header />
+  );
+}
+
+export default App;
+>>>>>>> 9c718e73a37e0c31af401e6fcd16c41f434d300d

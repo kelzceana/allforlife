@@ -49,8 +49,13 @@ module.exports = (db) => {
           return;
         }
         addUser(userData, db).then(newUser => {
+<<<<<<< HEAD
           req.session.customerId = newUser .id;
           console.log(req.session.customerId, "user");
+=======
+          req.session.customerId=newUser .id;
+          console.log(req.session.customerId)
+>>>>>>> 9c718e73a37e0c31af401e6fcd16c41f434d300d
           res.json(newUser);
           return;
         })
@@ -73,8 +78,13 @@ module.exports = (db) => {
           res.json([]);
           return;
         }
+<<<<<<< HEAD
         req.session.customerId = user.id;
         console.log(req.session.customerId);
+=======
+        req.session.customerId=user.id;
+        console.log(req.session.customerId)
+>>>>>>> 9c718e73a37e0c31af401e6fcd16c41f434d300d
         res.json(user);
       })
       .catch(e => {
