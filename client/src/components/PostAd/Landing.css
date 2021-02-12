@@ -1,0 +1,148 @@
+.start-btn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  align-self: center;
+  }
+
+
+.landing-container{
+  background-color:rgb(243, 241, 241);
+  background-image: url('../../images/laptop-mockup2.png');
+  background-size: cover;
+  width: 100%;
+  height: 140%;
+  border: solid 0.5px rgb(77, 76, 76);
+}
+.landing-container-box{
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  margin-top: 160px;
+  margin-left: 57%;
+  margin-right: 0px;
+  width: 601px;
+  margin-bottom:70px;
+}
+.landing-container-box h2{
+  background-color: #4b5779;
+  color: white;
+  letter-spacing: 2px;
+  font-weight: bold;
+  padding-left: 20px;
+  padding-top:1% ;
+  font-size: 1.3rem;
+  padding-bottom: 1%;
+}
+.landing-separation{
+  height: 5px;
+  background-color:transparent;
+}
+.landing{
+  background-color: 	rgb(255,255,255, 0.7);
+  display:flex;
+  flex-direction:column;
+ 
+}
+.landing h3{
+  color: #2c385c;
+  letter-spacing: 1px;
+  font-weight: bold;
+  padding-left: 30px;
+  padding-top:2% ;
+  font-size: 1.3rem;
+  padding-bottom: 1%;
+}
+.landing-for{
+  display:flex;
+  flex-direction: row; 
+  margin-left: 5%;
+  margin-right: 20px;
+  justify-content: space-between;
+}
+.myself{
+  display: flex;
+  border: solid 2px rgb(224, 223, 223);
+  background-color: rgb(255,255,255,1);
+  width: 45%;
+  margin-top: 15px;
+  margin-bottom:30px;
+}
+.myself input[type="radio"], .loved-one input[type="radio"] {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.loved-one {
+  display: flex;
+  border: solid 2px rgb(224, 223, 223);
+  background-color: rgb(255,255,255,1);
+  width: 45%;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+​
+.myself-desc{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin :auto;
+}
+
+.myself-desc img{
+  margin-left: -3px;
+  width: 221px;
+}
+
+
+.myself-title{
+  color: gray;
+  font-size: 1.2rem;
+  padding-left: 30%;
+  margin-bottom: 10px;
+}
+.myself-text{
+  color: gray;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-right: 20px;
+    margin-left: 16px;
+    margin-bottom: 20px;
+}
+​
+.landing-for img{
+  width: 65%;
+  height: 80px;
+  padding-top:20px ;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+​
+.start-btn {
+display: flex;
+justify-content: center;
+margin-bottom: 30px;
+padding-bottom: 20px;
+align-self: center;
+}
+.start-btn button{
+  width:150px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  height: 40px;
+  background:#f5c107;
+  border:1px solid #f5c107;
+  color:white;
+  border-radius: 2px;
+  cursor:pointer;
+  align-self: center;
+  }
+@media only screen and (max-width : 630px){
+  .landing-container-box{
+    width: 100%;
+    margin-left: 2%;
+  }
+  .landing-for{
+    flex-direction: column; 
+  }
+}

@@ -1,0 +1,152 @@
+
+  .post-description-container{
+    background-color:rgb(243, 241, 241);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    border: solid 0.5px rgb(243, 241, 241);
+  
+  }
+  .post-description-progress{
+    margin-top: 40px ;
+    margin-left: 20%;
+    width: 60%;
+    background-repeat: no-repeat;
+    height: 50px;
+    background-size: contain;
+    
+  }
+  .post-description-progress1{
+    display:none;
+  }
+  .description-container{
+
+    background-color: white;
+    margin-top: 50px;
+    margin-left:17%;
+    margin-bottom: 80px;
+    width:70%;
+    display: flex;
+    flex-direction: column;
+   
+  }
+
+  .containerDes{
+    display :flex;
+    flex-direction: row;
+    justify-content: space-around;
+ 
+  }
+  .problemDescription{
+    width: 30%;
+    display :flex;
+    flex-direction: column;
+  }
+  .description{
+    width: 80%;
+    display :flex;
+    padding-left: 26px;
+    flex-direction: column;
+  }
+  .description textarea{
+    margin-top: 10px;
+    width: 90%;
+    height: 250px;
+    margin-bottom: 40px;
+    border: solid 1px gray;
+  }
+  .description-container h3{
+    font-family: "Arial Bold";
+    margin-top:35px;
+    margin-left: 20px;
+    color: #2c385c;
+  }
+  .problemDescription img{
+    margin-top: 38px;
+    width: 116%;
+    margin-bottom: -5px;
+    margin-left: -53px;
+    /* height: 237px;*/
+  }
+
+  .description-container p{
+    margin-top: 10px;
+    margin-left:22px ;
+    width: 83%;
+    font-family: "Arial Bold";
+    letter-spacing: 1px;
+    color:gray;
+    text-align:left;
+
+  }
+  .button-nav{
+   width: 90%;
+    display: flex;
+    justify-content: flex-end;
+    
+  }
+  .button-nav  button{
+  width:130px;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  height: 40px;
+  background:#f5c107;
+  border:1px solid #f5c107;
+  color:white;
+  border: 1px solid #f5c107;
+  border-radius: 2px;
+  font-family: 'Ubuntu', sans-serif;
+  cursor:pointer;
+  }
+  
+
+  
+  /*Media Querie*/
+  @media only screen and (max-width : 630px){
+    .post-description-progress1{
+      margin-top: 30px ;
+      margin-left: auto;
+      margin-right: auto;
+      width: 60%;
+      border: solid 2px  #f5c107 ;
+      background-color:  #f5c107;
+      height: 50px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .post-description-progress1 span{
+      font-size: 2rem;
+    }
+    .containerDes{
+      display :flex;
+      flex-direction: column;
+    }
+    .button-nav{
+    
+       display: flex;
+       flex-direction: column ; 
+       margin-left: 30%;
+  
+     }
+     .button-nav, .problemDescription, .description {
+      width: 100%;
+    }
+
+
+    .description-container{
+      width: auto;
+      margin-left: 0px;
+    }
+    .post-description-progress{
+      display: none;
+    }
+    textarea , h3{
+      margin-left: 10%;
+    }
+    
+  }

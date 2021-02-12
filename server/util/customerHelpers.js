@@ -1,10 +1,10 @@
-//function to get user with email from the database
-const getUserWithEmail = (email, db) => {
+//function to get user with userName from the database
+const getUserWithUserName = (userName, db) => {
   return db.query(`
     SELECT * 
     FROM customers
-    WHERE email = $1;
-  `, [email])
+    WHERE userName = $1;
+  `, [userName])
     .then(res => {
       return res.rows[0];
     })
@@ -15,12 +15,12 @@ const getUserWithEmail = (email, db) => {
 
 //function to add a new user to the database
 const addUser = (userData, db) => {
-  const {prefix, firstName, lastName, email, password } = userData;
+  const {prefix, firstName, lastName, userName, email, password } = userData;
   return db.query(`
-  INSERT INTO customers (prefix, first_name, last_name, email, password)
-    VALUES($1, $2, $3, $4, $5)
+  INSERT INTO customers (prefix, first_name, last_name, userName, email, password)
+    VALUES($1, $2, $3, $4, $5, $6)
     RETURNING *;
-    `, [prefix, firstName, lastName, email, password])
+    `, [prefix, firstName, lastName, userName, email, password])
     .then(res => {
       return res.rows[0];
     })
@@ -29,6 +29,6 @@ const addUser = (userData, db) => {
     });
 };
 module.exports = {
-  getUserWithEmail,
+  getUserWithUserName,
   addUser
 };

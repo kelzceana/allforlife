@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 
-const { getUserWithEmail, addUser } = require('../util/customerHelpers');
+const { getUserWithUserName, addUser } = require('../util/customerHelpers');
 
 //api routes
 
@@ -27,10 +27,10 @@ module.exports = (db) => {
   
   //registration route
   router.post('/register', (req, res) => {
-    const { prefix, firstName, lastName, email, password } = req.body;
+    const { prefix, firstName, lastName, userName, email, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 12);
   
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName ||!userName ||!email || !password) {
       res.send("You are missing a field");
       return;
     }
@@ -38,18 +38,19 @@ module.exports = (db) => {
       prefix: prefix,
       firstName: firstName,
       lastName:lastName,
+      userName:userName,
       email:email,
       password: hashedPassword
     };
-    getUserWithEmail(email, db)
+    getUserWithUserName(userName, db)
       .then(response => {
         if (response) {
           res.json([]);
           return;
         }
         addUser(userData, db).then(newUser => {
-          req.session.customerId=newUser .id;
-          console.log(req.session.customerId)
+          req.session.customerId = newUser .id;
+          console.log(req.session.customerId, "user");
           res.json(newUser);
           return;
         })
@@ -57,14 +58,14 @@ module.exports = (db) => {
           
       })
       .catch(e => {
-        res.status(500).json({ error: e.message});
+        //res.status(500).json({ error: e.message});
       });
   });
   
   //login route
   router.post('/login', (req, res) => {
-    const {email, password} = req.body;
-    getUserWithEmail(email, db)
+    const {userName, password} = req.body;
+    getUserWithUserName(userName, db)
       .then(user => {
         if (!user) {
           res.json([]);
@@ -72,8 +73,8 @@ module.exports = (db) => {
           res.json([]);
           return;
         }
-        req.session.customerId=user.id;
-        console.log(req.session.customerId)
+        req.session.customerId = user.id;
+        console.log(req.session.customerId);
         res.json(user);
       })
       .catch(e => {
@@ -84,10 +85,4 @@ module.exports = (db) => {
   });
   return router;
 };
-
-
-
-
-
-
 

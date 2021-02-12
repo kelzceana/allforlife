@@ -1,0 +1,86 @@
+.review-container{
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+.review-container-left{
+  display:flex;
+  flex-direction: column;
+  width: 45%;
+  border-right: solid 2px rgb(202, 198, 198);
+}
+.review-container-rigth{
+  width: 50%;
+}
+.review-container fieldset{
+  border: none;
+  margin-left: 5%;
+  margin-right: 2%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-top:#f5c107 solid 1px;
+}
+.review-container legend{
+  font-weight: bold;
+  margin-left: -15px;   
+}
+.review-availability{
+  display: flex;
+  width: 90%;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top:20px;
+
+}
+.review-availability img{
+  border: solid 1px rgb(212, 211, 211);
+  height:150px;
+  margin-left: 40px;
+
+}
+.review-availability-freq{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.review-container input[type="text"]{
+  width: 100px;
+  height: 20px;
+  font-size: 15px;
+  color: grey;
+  margin-right: 30px;
+  margin-left: 20px ;
+}
+.symptomesshosen {
+  color :white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background-color: #4b5779;
+  border: solid 2px #4b5779;
+  border-radius: 10px;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top:1% ;
+  height: 25px;
+  margin: 5px;  
+  text-align: center;
+  vertical-align: center;
+}
+.review-symptomes{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+@media only screen and (max-width : 630px){
+
+  .review-container{
+      flex-direction: column;
+  }
+  .review-container-left, .review-container-rigth{
+      width: 100%;
+  }
+  
+}

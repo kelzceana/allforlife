@@ -2,12 +2,13 @@ import React from "react";
 import { useState, useEffect} from "react";
 import axios from "axios";
 import "./Login.css";
+import { Redirect } from "react-router-dom";
 
 
 export default function Login(props) {
 
     const [formValues, setFormValues] = useState({
-        email: "",
+        userName: "",
         password: ""
     });
     const [error, setError] = useState("");
@@ -21,14 +22,15 @@ export default function Login(props) {
 
     const fetchUser = () => {
         if(formValues.name === "" || formValues.password === "") {
-            setError("Email or password cannot be blank !")
+            setError("userName or password cannot be blank !")
         } else {
             axios.post(`http://localhost:8010/api/login`,
-             { email : formValues.email, password :formValues.password}).then(res =>{
+             { userName : formValues.userName, password :formValues.password}).then(res =>{
                 if(res.data.length <= 0){
-                    setError("Email or password is incorrect !")
+                    setError("userName or password is incorrect !")
                     } else {
                         setError("");
+                        console.log(res.data)
                         props.setUser(res.data)
                         setLoggedIn(true);
                 } 
@@ -36,7 +38,7 @@ export default function Login(props) {
         }
     }
 
-    return (
+    return !loggedIn ?(
         <div className="login-container">
             <div className="login">  
                 <form className="login-form" onSubmit={event => event.preventDefault()} >
@@ -44,8 +46,8 @@ export default function Login(props) {
                     {error && <div className="alert-error">
                     {error}
                     </div>}
-                    <h3>Email:</h3>
-                    <input type="text" name="email" value ={formValues.email} onChange = {handleChange}  placeholder="Email"/>
+                    <h3>Username:</h3>
+                    <input type="text" name="userName" value ={formValues.userName} onChange = {handleChange}  placeholder="Username"/>
                     <h3>Password:</h3>
                     <input type="password" name="password" value= {formValues.password} onChange = {handleChange}  placeholder="Password"/>
                     <br/>
@@ -53,6 +55,5 @@ export default function Login(props) {
                 </form>
             </div>
         </div>
-    )
-    
+    ): <Redirect to='/'></Redirect>;
 }

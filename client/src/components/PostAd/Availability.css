@@ -1,0 +1,39 @@
+.availability-image{
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+}
+
+
+
+.availability-image-1{
+  display: flex;
+  flex-direction: row;
+  padding: 2%;
+  justify-content: center;
+}
+
+.individual-image{
+  display: flex;
+  flex-direction: column;
+  margin-left:20px;
+  padding:2%;
+  padding-bottom: 16px;
+  width:27%;
+  border: solid 0.5px #e8e8e8;
+}
+.image-input{
+  display: flex;
+  justify-content: center;
+  width:100%;
+}
+.individual-image-title{
+  margin-top: -37px;
+  margin-left: 16px;
+}
+
+.individual-image img{
+  align-items: center;
+  height: 100px;
+  width:100px;
+}

@@ -1,0 +1,32 @@
+
+.h3-heading{
+  padding: 14px;
+  margin-top: -21px;
+  margin-left: -11px;
+}
+
+
+.preference-details h5{
+  margin-left: 25px;
+}
+
+.preference-details select {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 90%;
+  height: 50px;
+  color: gray;
+  line-height:3em;
+  background-color: white;
+}
+
+
+/*Media Querie*/
+@media only screen and (max-width : 630px){
+
+  .post-description-progress2{
+    display: none;
+  }
+
+  
+}
