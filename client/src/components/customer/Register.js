@@ -26,15 +26,11 @@ export default function Register(props) {
         if(formValues.userName === ""||formValues.email === "" || formValues.password==="" || formValues.firstName===""
         || formValues.lastName==="") {
             setError("First name , last name , Username, email and password cannot be blank !")
-        if(formValues.email === "" || formValues.password==="" || formValues.firstName===""
-        || formValues.lastName==="") {
-            setError("First name , last name , email and password cannot be blank !")
         } else {
             const user = {
                 prefix:formValues.prefix,
                 firstName:formValues.firstName,
                 lastName:formValues.lastName,
-
                 userName:formValues.userName,
                 email: formValues.email,
                 password: formValues.password
@@ -42,7 +38,6 @@ export default function Register(props) {
             axios.post(`http://localhost:8010/api/register`,user).then(res =>{
                 if(res.data.length <= 0){
                     setError("Could not create user this username already exists!")
-                    setError("Could not create user this email already exists!")
                     } else {
                         console.log(res.data);
                         setError("");
@@ -54,9 +49,7 @@ export default function Register(props) {
         } 
     }
 
-
     return !loggedIn ? (
-    return (
         <div className="register-container">
             <div className="register">
                 <form className="register-form" onSubmit={event => event.preventDefault()} >
@@ -89,8 +82,3 @@ export default function Register(props) {
     ):<Redirect to='/'></Redirect>;
     
 }
-
-    )
-    
-}
-
