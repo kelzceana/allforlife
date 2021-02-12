@@ -5,13 +5,13 @@ const db = require("./db/dbIndex");
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 
-
 // routes constants
 const users = require("./routes/users");
 const jobPost = require("./routes/jobPost");
 
 
 //initializing middleware
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -20,6 +20,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Headers', '*');
+  next();
+});
 
 app.use(cookieSession({
   name: 'session',
@@ -31,8 +35,7 @@ app.use(cookieSession({
 app.use("/api", users(db));
 app.use("/api/jobpost", jobPost(db));
 
-//routes
-app.use("/api", users(db));
+
 
 //app listening
 app.listen(PORT, ()=>{
