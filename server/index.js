@@ -30,7 +30,6 @@ app.use(cookieSession({
 //routes
 app.use("/api", users(db));
 app.use("/api/jobpost", jobPost(db));
-}))
 
 //routes
 app.use("/api", users(db));
