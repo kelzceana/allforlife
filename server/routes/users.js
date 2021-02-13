@@ -1,8 +1,9 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
-const { getUserWithUserName, addUser } = require('../util/customerHelpers');
+const { getUserWithUserName, addUser, checksession } = require('../util/customerHelpers');
 
 //api routes
 
@@ -26,35 +27,54 @@ module.exports = (db) => {
   });
   
   //registration route
-  router.post('/register', (req, res) => {
-    const { prefix, firstName, lastName, userName, email, password } = req.body;
-    const hashedPassword = bcrypt.hashSync(password, 12);
-  
-    if (!firstName || !lastName ||!userName ||!email || !password) {
-      res.send("You are missing a field");
-      return;
+  router.post('/register', async(req, res) => {
+    const { prefix, firstName, lastName, userName, email } = req.body;
+    let { password } = req.body;
+    //const hashedPassword = bcrypt.hashSync(password, 12);
+    const salt = await bcrypt.genSalt(12);
+    password = await bcrypt.hash(password, salt);
+    if (!firstName || !lastName || !userName || !email || !password) {
+      res.status(400).json({message:"You are missing a field"});
     }
     const userData = {
-      prefix: prefix,
-      firstName: firstName,
-      lastName:lastName,
-      userName:userName,
-      email:email,
-      password: hashedPassword
+      prefix,
+      firstName,
+      lastName,
+      userName,
+      email,
+      password
     };
+
     getUserWithUserName(userName, db)
       .then(response => {
         if (response) {
-          res.json([]);
-          return;
+          res.status(400).json({message:"user exist"});
         }
         addUser(userData, db).then(newUser => {
-          req.session.customerId = newUser .id;
-          console.log(req.session.customerId, "user");
-          req.session.customerId=newUser .id;
-          console.log(req.session.customerId)
-          res.json(newUser);
-          return;
+          
+          const payload = {
+            user: {
+              id: newUser.id,
+              userName: newUser.username
+            }
+          };
+          //res.json(payload);
+          jwt.sign(
+            payload, 
+            "allforlife",
+            {expiresIn: 3600 * 24},
+            (err, token) => {
+              if (err) {
+                throw err;
+              }
+              res.json({token});
+            }
+          );
+
+          // req.session.customerId = newUser.id;
+          // req.session.customerId = newUser .id;
+          // res.json(newUser);
+          // return;
         })
           .catch(e => res.send("error"));
           
@@ -70,15 +90,16 @@ module.exports = (db) => {
     getUserWithUserName(userName, db)
       .then(user => {
         if (!user) {
-          res.json([]);
+          res.send(401).json({message:"Username does not exit"});
+
         } else if (!bcrypt.compareSync(password, user['password'])) {
           res.json([]);
           return;
         }
         req.session.customerId = user.id;
-        console.log(req.session.customerId);
-        req.session.customerId=user.id;
-        console.log(req.session.customerId)
+        console.log(req.session, "heyyeyeyeyeyeyeyey");
+        //console.log(req.session.customerId);
+        req.session.customerId = user.id;
         res.json(user);
       })
       .catch(e => {

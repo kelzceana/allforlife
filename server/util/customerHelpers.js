@@ -28,7 +28,23 @@ const addUser = (userData, db) => {
       return null;
     });
 };
+
+
+//function to check cookie
+
+const checksession = function(cookie, users) {
+  for (const user in users) {
+    if (cookie === users[user].id) {
+      return true;
+    }
+  }
+  return false;
+};
+
+
 module.exports = {
   getUserWithUserName,
-  addUser
+  addUser,
+  checksession
+
 };
