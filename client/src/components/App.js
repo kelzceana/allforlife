@@ -10,6 +10,7 @@ import PostAd from './PostAd';
 import LoginDecision from './LoginDecision';
 import RegisterDecision from './RegisterDecision';
 
+import {decodeUser} from '../util/index'
 /*  <>
    <Header />
    {!user && <Register setUser={setUser}/>}
@@ -17,8 +18,9 @@ import RegisterDecision from './RegisterDecision';
    </> */
 
 function App() {
-  const [user,setUser]= useState(null);
-
+ const userFromStorage = decodeUser()
+  const [user,setUser]= useState(userFromStorage || null);
+  console.log(user, "app userrrrr")
   return (
     <Router>
       <Header user={user} setUser={setUser}/>
@@ -36,7 +38,7 @@ function App() {
           {!user && <LoginDecision setUser={setUser} />}
         </Route>
         <Route path="/" exact>
-          <PostAd  user={user}/>
+          <PostAd  user={user.user.id}/>
         </Route>
       </Switch>
       <Footer />

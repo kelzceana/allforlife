@@ -3,9 +3,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-export default function Header(props) {
-  const { user,setUser } = props;
 
+const logout = () => {
+  localStorage.removeItem("token")
+}
+
+export default function Header(props) {
+  const {user,setUser } = props;
+  console.log(user, "hello user")
     return (
       <nav className="nav-container">
           <div className="nav-div-image">
@@ -17,7 +22,7 @@ export default function Header(props) {
           </div>
           }
           {user && <div className="nav-links">
-            <span className="nav-link-id"> Hi {user.username}</span>
+            <span className="nav-link-id"> Hi {user.user.userName}</span>
             <span className="nav-link-id" onClick={() => setUser(null)}>Logout</span>
           </div>
           }

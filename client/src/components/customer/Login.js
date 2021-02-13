@@ -1,9 +1,8 @@
 import React from "react";
-import { useState, useEffect} from "react";
+import { useState} from "react";
 import axios from "axios";
 import "./Login.css";
 import { Redirect } from "react-router-dom";
-
 
 export default function Login(props) {
 
