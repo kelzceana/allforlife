@@ -38,8 +38,7 @@ export default function Register(props) {
             }
             axios.post(`http://localhost:8010/api/register`,user).then(res =>{
 
-                if (res.status === 200) {
-                    
+                if (res.status === 200) { 
                      localStorage.setItem("token", res.data.token)
                      const userData = decodeUser()
                      setError("");
