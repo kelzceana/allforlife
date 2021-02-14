@@ -3,6 +3,9 @@ import jwtDecode from 'jwt-decode';
 //function to decode token
 const decodeUser = () => {
   const token = localStorage.getItem("token");
+  if (token === "") {
+    return undefined
+  }
   return jwtDecode(token);
 };
 
