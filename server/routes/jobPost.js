@@ -9,7 +9,6 @@ module.exports = (db) => {
   //api route for new job posting
 
   router.post('/', (req, res) => {
-    console.log(req.body, "maybe")
     const { customerId, appointmentFor, description, symptomes, symptomesId, insurance, therapy, sexuality, age, language, ethnicity, faith, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo } = req.body.jobPostData;
     const jobPostObj = {
       customerId: customerId,

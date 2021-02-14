@@ -4,30 +4,12 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 const { getUserWithUserName, addUser, checksession } = require('../util/customerHelpers');
-
+const { requireAuth } = require("../middleware/authMiddleWare");
 //api routes
 
 module.exports = (db) => {
-  
-  router.get('/', async(req, res) => {
-    try {
-      const allUsers = await db.query(`SELECT * FROM customers`);
-      res.json(allUsers.rows);
-    } catch (e) {
-      console.log(e.message);
-    }
-  });
-  
-  router.get('/:id', (req, res) => {
-    const user = users.find(u => u.id === parseInt(req.params.id));
-    if (!user) {
-      res.status(404).send("this user does not exist");
-    }
-    res.send(user);
-  });
-  
-  //registration route
-  router.post('/register', async(req, res) => {
+  //registration routes
+  router.post('/register',requireAuth,  async(req, res) => {
     const { prefix, firstName, lastName, userName, email } = req.body;
     let { password } = req.body;
     //const hashedPassword = bcrypt.hashSync(password, 12);
@@ -51,11 +33,11 @@ module.exports = (db) => {
           res.status(400).json({message:"user exist"});
         }
         addUser(userData, db).then(newUser => {
-          
           const payload = {
             user: {
               id: newUser.id,
-              userName: newUser.username
+              userName: newUser.username,
+              auth: requireAuth
             }
           };
           //res.json(payload);
@@ -85,22 +67,44 @@ module.exports = (db) => {
   });
   
   //login route
-  router.post('/login', (req, res) => {
+  router.post('/login',(req, res) => {
     const {userName, password} = req.body;
     getUserWithUserName(userName, db)
-      .then(user => {
-        if (!user) {
+      .then(loggedUser => {
+        if (!loggedUser) {
           res.send(401).json({message:"Username does not exit"});
 
-        } else if (!bcrypt.compareSync(password, user['password'])) {
-          res.json([]);
+        } else if (!bcrypt.compareSync(password, loggedUser['password'])) {
+          res.status(400).json({message:"password is incorrect"});
           return;
         }
-        req.session.customerId = user.id;
-        console.log(req.session, "heyyeyeyeyeyeyeyey");
-        //console.log(req.session.customerId);
-        req.session.customerId = user.id;
-        res.json(user);
+
+        //payload
+        const payload = {
+          user: {
+            id: loggedUser.id,
+            userName: loggedUser.username,
+            auth: requireAuth
+          }
+        };
+        //sending tokens
+        jwt.sign(
+          payload, 
+          "allforlife",
+          {expiresIn: 3600 * 24},
+          (err, token) => {
+            if (err) {
+              throw err;
+            }
+            res.json({token});
+          }
+        );
+
+        // req.session.customerId = user.id;
+        // console.log(req.session, "heyyeyeyeyeyeyeyey");
+        // //console.log(req.session.customerId);
+        // req.session.customerId = user.id;
+        // res.json(user);
       })
       .catch(e => {
         if (e) {
