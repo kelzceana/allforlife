@@ -1,8 +1,9 @@
 import React from "react";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import axios from "axios";
 import "./Login.css";
 import { Redirect } from "react-router-dom";
+import { decodeUser } from '../../util/index';
 
 export default function Login(props) {
 
@@ -25,14 +26,19 @@ export default function Login(props) {
         } else {
             axios.post(`http://localhost:8010/api/login`,
              { userName : formValues.userName, password :formValues.password}).then(res =>{
-                if(res.data.length <= 0){
+                if(res.staus === 400){
                     setError("userName or password is incorrect !")
                     } else {
-                        setError("");
-                        console.log(res.data)
-                        props.setUser(res.data)
-                        setLoggedIn(true);
-                } 
+                        localStorage.setItem("token", res.data.token)
+                     const userData = decodeUser()
+                     setError("");
+                     props.setUser(userData.user)
+                     setLoggedIn(true);
+                        // setError("");
+                        // console.log(res.data)
+                        // props.setUser(res.data)
+                        // setLoggedIn(true);
+                    } 
             })
         }
     }
