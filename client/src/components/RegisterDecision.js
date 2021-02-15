@@ -22,7 +22,9 @@ export default function RegisterDecision(props) {
                         </div>
                         <div className="loved-one">
                             <div className="myself-desc">
-                                <img src={`./images/lovedOne.png`} alt="lovedOne"></img>
+                            <Link to='/providerregister'>
+                                <img src={`./images/mySelf.png`} alt="mySelf"></img>
+                            </Link>
                                 <div className="myself-title">Provider</div>
                                 </div>
                             </div>
