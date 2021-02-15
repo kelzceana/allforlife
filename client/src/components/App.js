@@ -1,10 +1,10 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
 import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
-
+import ProviderLogin from './customer/ProviderLogin';
+import ProviderRegister from './customer/ProviderRegister';
 import Login from './customer/Login';
 import Register from './customer/Register';
 import PostAd from './PostAd';
@@ -20,13 +20,20 @@ import {decodeUser} from '../util/index'
 
 function App() {
  const userFromStorage = decodeUser()
- 
-  const [loggeduser,setUser]= useState(userFromStorage);
+ const [loggeduser,setUser]= useState(userFromStorage);
   
+ //authenticating a user
+ 
   return (
     <Router>
       <Header user={loggeduser} setUser={setUser}/>
       <Switch>
+      <Route path="/providerlogin" exact>
+         <ProviderLogin setUser={setUser} /> 
+        </Route>
+        <Route path="/providerregister" exact>
+          <ProviderRegister user={loggeduser} setUser={setUser} />
+        </Route>
         <Route path="/customerlogin">
           <Login setUser={setUser} /> 
         </Route>
