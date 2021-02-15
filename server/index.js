@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 // routes constants
 const users = require("./routes/users");
 const jobPost = require("./routes/jobPost");
-
+const providers = require("./routes/providers");
 
 //initializing middleware
 
@@ -34,7 +34,7 @@ app.use(cookieSession({
 //routes
 app.use("/api", users(db));
 app.use("/api/jobpost", jobPost(db));
-
+app.use("/api/providers",providers(db));
 
 
 //app listening
