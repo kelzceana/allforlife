@@ -17,13 +17,19 @@ CREATE TABLE customers(
 ​
 CREATE TABLE providers(
     id SERIAL PRIMARY KEY NOT NULL,
-    prefix VARCHAR(10),
+    prefix VARCHAR(10) DEFAULT NULL,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    degree VARCHAR(255),
     email VARCHAR(255) NOT NULL,
     userName VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    degree VARCHAR(255) DEFAULT NULL,
+    aboutMe TEXT DEFAULT NULL,
+    therapy VARCHAR(255) DEFAULT NULL,
+    age VARCHAR(255) DEFAULT NULL,
+    ethnicity VARCHAR(255) DEFAULT NULL,
+    location VARCHAR(255) DEFAULT NULL,
+    profile_photo_url VARCHAR(255) DEFAULT NULL
 );
 ​
 CREATE TABLE job_postings(
