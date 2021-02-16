@@ -9,7 +9,7 @@ const { requireAuth } = require("../middleware/authMiddleWare");
 
 module.exports = (db) => {
   //registration routes
-  router.post('/register',requireAuth,  async(req, res) => {
+  router.post('/register',  async(req, res) => {
     const { prefix, firstName, lastName, userName, email } = req.body;
     let { password } = req.body;
     //const hashedPassword = bcrypt.hashSync(password, 12);
@@ -49,6 +49,8 @@ module.exports = (db) => {
               if (err) {
                 throw err;
               }
+              req.session.customerId = newUser.id;
+              console.log(req)
               res.json({token});
             }
           );
@@ -84,7 +86,7 @@ module.exports = (db) => {
           user: {
             id: loggedUser.id,
             userName: loggedUser.username,
-            auth: requireAuth
+            type: 'customer'
           }
         };
         //sending tokens
@@ -96,6 +98,9 @@ module.exports = (db) => {
             if (err) {
               throw err;
             }
+            //req.session.customerId = loggedUser.id;
+            // res.cookie('customerId', loggedUser.id);
+            // console.log(res.cookie, "request")
             res.json({token});
           }
         );
@@ -112,6 +117,13 @@ module.exports = (db) => {
         }
       });
   });
+
+  router.get('/users', (req, res) => {
+    res.cookie('cookie', '123')
+    res.cookie('man', '123')
+    res.send("hello")
+    
+  })
   return router;
 };
 

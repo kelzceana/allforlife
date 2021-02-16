@@ -1,8 +1,11 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 8010;
 const db = require("./db/dbIndex");
-const cookieSession = require('cookie-session');
+//const cookieSession = require('cookie-session');
+
+
 const bodyParser = require('body-parser');
 
 // routes constants
@@ -25,11 +28,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}));
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['key1', 'key2'],
+//   maxAge: 24 * 60 * 60 * 1000, // 24 hours
+//   secure:false
+// }));
 
+app.use(cookieParser());
 
 //routes
 app.use("/api", users(db));
