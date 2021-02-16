@@ -1,0 +1,129 @@
+.proposalform-container{
+    background-color:rgb(243, 241, 241);
+    width: 100%;
+    height: 100%;
+    border: solid 0.5px rgb(243, 241, 241);   
+    display: flex;
+    flex-direction: column;
+}
+.proposalform-container-title{
+    margin-top: 70px;
+    background-color: #2c385c;
+    width: 80%;
+    margin-left:auto;
+    margin-right: auto;
+    height: 40px;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-top:1%;
+    padding-left: 2%;
+}
+.proposalform-separation{
+    width: 80%;
+    margin-left:auto;
+    margin-right: auto;
+    height: 10px;
+    padding-left: 2%;
+}
+.proposalform-item{
+    background-color:white;
+    width: 80%;
+    margin-left:auto;
+    margin-right: auto;
+    padding-left: 2%;
+    padding-bottom: 15px;
+}
+.proposalform-item button{
+   display: none;
+}
+.proposalform-item .item-budget{
+    height: 30px ;
+}
+.proposalform-item .proposalad-list-item{
+    border: none;
+    
+}
+.proposalform-form{
+    background-color:white;
+    width: 80%;
+    margin-left:auto;
+    margin-right: auto;
+    padding-left: 2%;
+    border: solid 1px #2c385c;
+    margin-bottom: 70px;
+}
+.proposalform-form h3{
+    margin-top:25px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    color:  #4b5779;
+}
+.proposalform-form textarea{
+    margin-left: 15px;
+    border: solid 1px  #4b5779 ;
+    width: 90%;
+    height: 150px;
+    color: rgb(82, 80, 80);
+    font-size: 1.2rem;
+}
+.form-availabilty input[type="text"],  input[type="number"] {
+    margin-left: 15px;
+    width: 35%;
+    height: 30px;
+    font-size: 1rem;
+}
+.form-availabilty select{
+    width: 100%;
+    height: 100px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+} 
+.proposalform-form h5{
+    padding-left: 0;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+.button-send{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-right: 4%;
+    display: flex;
+    justify-content: flex-end;
+}
+.button-send button{
+    width:160px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    height: 50px;
+    background:#f5c107;
+    border:1px solid #f5c107;
+    color:white;
+    border-radius: 4px;
+    cursor:pointer;
+}
+.form-availabilty{
+    display: flex;
+    width: 100%;
+   
+}
+.form-availabilty-days{
+    width: 50%;
+}
+.form-availabilty-time{
+    width:60% ;
+    margin-left: 7%;
+}
+.yellow-icon{
+    color: #f5c107;
+    font-size: 1rem;
+}
+/*Media Querie*/
+@media only screen and (max-width : 650px){
+    .button-send{
+        justify-content: flex-start;
+    }
+    .form-availabilty{
+        flex-direction: column;
+    }
+}

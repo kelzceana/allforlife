@@ -1,8 +1,10 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 DROP TABLE IF EXISTS customers CASCADE;
 DROP TABLE IF EXISTS providers CASCADE;
 DROP TABLE IF EXISTS job_postings CASCADE;
 DROP TABLE IF EXISTS symptomes CASCADE;
 DROP TABLE IF EXISTS symptomes_look_up CASCADE;
+DROP TABLE IF EXISTS job_proposals CASCADE;
 ​
 ​
 CREATE TABLE customers(
@@ -16,14 +18,20 @@ CREATE TABLE customers(
 );
 ​
 CREATE TABLE providers(
-    id SERIAL PRIMARY KEY NOT NULL,
-    prefix VARCHAR(10),
+    id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
+    prefix VARCHAR(10) DEFAULT NULL,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    degree VARCHAR(255),
     email VARCHAR(255) NOT NULL,
     userName VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    degree VARCHAR(255) DEFAULT NULL,
+    aboutMe TEXT DEFAULT NULL,
+    therapy VARCHAR(255) DEFAULT NULL,
+    age VARCHAR(255) DEFAULT NULL,
+    ethnicity VARCHAR(255) DEFAULT NULL,
+    location VARCHAR(255) DEFAULT NULL,
+    profile_photo_url VARCHAR(255) DEFAULT NULL
 );
 ​
 CREATE TABLE job_postings(
@@ -60,3 +68,15 @@ CREATE TABLE symptomes_look_up(
     job_posting_id INTEGER REFERENCES job_postings(id) ON DELETE CASCADE,
     symptome_id INTEGER REFERENCES symptomes(id) ON DELETE CASCADE
 );
+
+CREATE TABLE job_proposals(
+    id SERIAL PRIMARY KEY NOT NULL,
+    provider_id uuid REFERENCES providers(id) ON DELETE CASCADE,
+    job_posting_id INTEGER REFERENCES job_postings(id) ON DELETE CASCADE,
+    description VARCHAR(255) DEFAULT NULL,
+    price  INTEGER DEFAULT NULL,
+    availability_days VARCHAR(255) DEFAULT NULL,
+    availabilityFrom VARCHAR(255) DEFAULT NULL,
+    availabilityTo VARCHAR(255) DEFAULT NULL
+);
+​

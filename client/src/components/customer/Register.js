@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Register.css"
 import { Redirect } from "react-router-dom";
+import { decodeUser } from '../../util/index';
 
 export default function Register(props) {
 
@@ -15,9 +16,7 @@ export default function Register(props) {
     });
     const [error, setError] = useState("");
 
-    const [loggedIn, setLoggedIn] = useState(false)
-
-    const handleChange = (event) => {
+   const handleChange = (event) => {
         const { name, value } = event.target
         setFormValues({ ...formValues, [name]: value })
     }
@@ -36,20 +35,33 @@ export default function Register(props) {
                 password: formValues.password
             }
             axios.post(`http://localhost:8010/api/register`,user).then(res =>{
-                if(res.data.length <= 0){
-                    setError("Could not create user this username already exists!")
-                    } else {
-                        console.log(res.data);
-                        setError("");
-                        props.setUser(res.data)
-                        setLoggedIn(true);
-                    } 
+
+                if (res.status === 200) { 
+                     localStorage.setItem("token", res.data.token)
+                     const userData = decodeUser()
+                     setError("");
+                     props.setUser(userData.user)
+                     props.setLoggedIn(true);
+                    //console.log(userData.user.id);
+                    //  setError("");
+                    //  props.setUser(res.data.userName)
+                    //  setLoggedIn(true);
+                }
+
+                // if(res.data.length <= 0){
+                //     setError("Could not create user this username already exists!")
+                //     } else {
+                //         console.log(res.data);
+                //         setError("");
+                //         props.setUser(res.data)
+                //         setLoggedIn(true);
+                //     } 
              });
 
         } 
     }
 
-    return !loggedIn ? (
+    return !props.loggedIn ? (
         <div className="register-container">
             <div className="register">
                 <form className="register-form" onSubmit={event => event.preventDefault()} >

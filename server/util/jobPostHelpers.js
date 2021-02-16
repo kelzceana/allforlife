@@ -47,7 +47,101 @@ const getSymptomes = (db) => {
       return res.rows;
     });
 };
+
+//function to get sympotomes from the database for a specific ID
+const getSymptomesByID = (id, db) => {
+  
+  return db.query(`
+    SELECT * FROM symptomes INNER JOIN symptomes_look_up ON  symptome_id=symptomes.id
+    WHERE job_posting_id = $1
+  `, [id])
+    .then(res => {
+      return res.rows;
+    });
+};
+//function to get jobposting from the database for a specific ID
+const getJobsPostingByID = (id, db) => {
+
+  return db.query(`
+  SELECT * FROM job_postings WHERE id = $1
+`, [id])
+    .then(res => {
+      return res.rows;
+    });
+};
+//get jobs posting with a specific options
+const getJobsPosting = (options, db) => {
+  
+  const min = parseInt(options[3]);
+  const max = parseInt(options[4]);
+
+  const queryParams = [];
+  let queryString = `SELECT * FROM job_postings `;
+  
+  
+  /*if(options[2]==="0"){
+
+  } else {
+  let queryString = `SELECT job_postings.*  count(job_postings.id)
+  FROM job_postings INNER JOIN job_offrings ON `;
+  }
+ */
+
+  if (options[0] !== "null" && options[0] !== "Fixed Price") {
+    queryParams.push(`${options[0]}`);
+    queryString += ` WHERE typeOfPayment LIKE $${queryParams.length} `;
+  }
+  if (options[0] === "Fixed Price") {
+    queryString += ` WHERE typeOfPayment not LIKE 'Hourly' `;
+  }
+  
+  if(queryParams.length < 1 && options[0] === "Fixed Price" &&  options[4]!=="0") {
+    queryString += ` and`;
+  }
+  if(queryParams.length < 1 && options[0]!=="Fixed Price" &&  options[4]!=="0") {
+    queryString += ` where`;
+  }
+  if(queryParams.length >= 1  && options[4]!=="0"){
+    queryString += ` and`;
+  }
+
+
+  if (options[4]!=="0") {
+    queryParams.push(min);
+    queryParams.push(max);
+    queryString += `  minPrice >= $${queryParams.length-1}  and maxPrice <= $${queryParams.length} `;
+  }
+
+  if(options[5]==="DESC"){
+    queryString += ` 
+      ORDER BY  created_at DESC`;
+  } else {
+    queryString += ` 
+      ORDER BY  created_at`;
+  }
+
+  console.log(queryString, queryParams);
+  return db.query(queryString,queryParams)
+  .then(res => {
+    return res.rows;
+  });
+}
+
+//function to get jobposting from the database for a specific customer ID
+const getJobsPostingByCustomerID = (id, db) => {
+  return db.query(`
+  SELECT * FROM job_postings WHERE customer_id = $1`, [id])
+  .then(res => {
+    return res.rows;
+  });
+}
+
 module.exports = {
   createNewPost,
-  getSymptomes
+  getSymptomes,
+  getSymptomesByID,
+  getJobsPostingByID,
+  getJobsPosting,
+  getJobsPostingByCustomerID
 };
+
