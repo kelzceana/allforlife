@@ -1,35 +1,27 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./Header.css";
 
-
 export default function Header(props) {
-  
-  const handleClick = (evt) => {
-    evt.preventDefault();
+  const { user,setUser } = props;
+  const handleClick =(event) => {
+    event.preventDefault();
     localStorage.setItem("token", "");
-    props.setUser(undefined);
-    <Redirect to='/login'></Redirect>
+    setUser(undefined);
+    props.setLoggedIn(false);
   }
 
-  console.log(props.user, "props user")
     return (
       <nav className="nav-container">
           <div className="nav-div-image">
-            <img src="./images/logo.png" />
+            <img src="/image/logo.png" alt="logo" />
           </div>
-         {props.user === undefined && <div className="nav-links">
-            <Link to="/login" className="nav-link-id">Login</Link> 
-            <Link to="/register" className="nav-link-id">Register</Link>
-          </div>
-          }
-          {props.user !== undefined && <div className="nav-links">
-            <span className="nav-link-id"> Hi {props.user.userName}</span>
-            <span className="nav-link-id" onClick={(evt) => handleClick(evt)}>Logout</span>
+          {user && <div className="nav-links">
+            <span className="nav-link-id"> Hi {user.userName}</span>
+            <Link to='/postAd'>PostAd</Link>
+            <span className="nav-link-id" onClick={(event) => handleClick(event)}>Logout</span>
           </div>
           }
       </nav>
     );
 }
-

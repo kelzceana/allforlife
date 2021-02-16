@@ -1,9 +1,10 @@
 import React from "react";
-import { useState, useEffect} from "react";
+import { useState } from "react";
 import axios from "axios";
 import "./Login.css";
 import { Redirect } from "react-router-dom";
-import { decodeUser } from '../../util/index';
+import { decodeUser } from "../../util/index";
+
 
 export default function Login(props) {
 
@@ -12,8 +13,6 @@ export default function Login(props) {
         password: ""
     });
     const [error, setError] = useState("");
-
-    const [loggedIn, setLoggedIn] = useState(false)
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -26,24 +25,21 @@ export default function Login(props) {
         } else {
             axios.post(`http://localhost:8010/api/login`,
              { userName : formValues.userName, password :formValues.password}).then(res =>{
-                if(res.staus === 400){
-                    setError("userName or password is incorrect !")
-                    } else {
-                        localStorage.setItem("token", res.data.token)
-                     const userData = decodeUser()
-                     setError("");
-                     props.setUser(userData.user)
-                     setLoggedIn(true);
-                        // setError("");
-                        // console.log(res.data)
-                        // props.setUser(res.data)
-                        // setLoggedIn(true);
-                    } 
+                if(res.status === 200) {
+                    localStorage.setItem("token",res.data.token);
+                    const providerData = decodeUser();
+                    setError("");
+                    props.setUser(providerData.user);
+                    props.setLoggedIn(true);
+                }
             })
+            .catch(err => {
+                setError("User doesn't exists!");
+            })  
         }
     }
 
-    return !loggedIn ?(
+    return !props.loggedIn ?(
         <div className="login-container">
             <div className="login">  
                 <form className="login-form" onSubmit={event => event.preventDefault()} >
@@ -60,5 +56,5 @@ export default function Login(props) {
                 </form>
             </div>
         </div>
-    ): <Redirect to='/'></Redirect>;
+    ): <Redirect to='/customer/dashboard'></Redirect>;
 }

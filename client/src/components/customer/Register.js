@@ -16,9 +16,7 @@ export default function Register(props) {
     });
     const [error, setError] = useState("");
 
-    const [loggedIn, setLoggedIn] = useState(false)
-
-    const handleChange = (event) => {
+   const handleChange = (event) => {
         const { name, value } = event.target
         setFormValues({ ...formValues, [name]: value })
     }
@@ -43,7 +41,7 @@ export default function Register(props) {
                      const userData = decodeUser()
                      setError("");
                      props.setUser(userData.user)
-                     setLoggedIn(true);
+                     props.setLoggedIn(true);
                     //console.log(userData.user.id);
                     //  setError("");
                     //  props.setUser(res.data.userName)
@@ -63,7 +61,7 @@ export default function Register(props) {
         } 
     }
 
-    return !loggedIn ? (
+    return !props.loggedIn ? (
         <div className="register-container">
             <div className="register">
                 <form className="register-form" onSubmit={event => event.preventDefault()} >
