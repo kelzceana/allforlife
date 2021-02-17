@@ -41,27 +41,13 @@ export default function Register(props) {
                      const userData = decodeUser()
                      setError("");
                      props.setUser(userData.user)
-                     props.setLoggedIn(true);
-                    //console.log(userData.user.id);
-                    //  setError("");
-                    //  props.setUser(res.data.userName)
-                    //  setLoggedIn(true);
                 }
-
-                // if(res.data.length <= 0){
-                //     setError("Could not create user this username already exists!")
-                //     } else {
-                //         console.log(res.data);
-                //         setError("");
-                //         props.setUser(res.data)
-                //         setLoggedIn(true);
-                //     } 
              });
 
         } 
     }
 
-    return !props.loggedIn ? (
+    return !props.user? (
         <div className="register-container">
             <div className="register">
                 <form className="register-form" onSubmit={event => event.preventDefault()} >
@@ -91,6 +77,6 @@ export default function Register(props) {
                 </form>
             </div>       
         </div>
-    ):<Redirect to='/'></Redirect>;
+    ):<Redirect to='/customer/dashboard'></Redirect>;
     
 }
