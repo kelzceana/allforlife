@@ -27,9 +27,10 @@ export default function Login(props) {
              { userName : formValues.userName, password :formValues.password}).then(res =>{
                 if(res.status === 200) {
                     localStorage.setItem("token",res.data.token);
-                    const customerData = decodeUser();
+                    const userData = decodeUser();
+                    console.log("I am from user" + userData);
                     setError("");
-                    props.setUser(customerData.user);
+                    props.setUser(userData.user);
                 }
             })
             .catch(err => {
@@ -38,7 +39,7 @@ export default function Login(props) {
         }
     }
 
-    return !props.loggedIn ?(
+    return !props.user ?(
         <div className="login-container">
             <div className="login">  
                 <form className="login-form" onSubmit={event => event.preventDefault()} >
@@ -57,5 +58,5 @@ export default function Login(props) {
                 </form>
             </div>
         </div>
-    ): <Redirect to='/customer/dashboard'></Redirect>;
+    ): <Redirect to='//customer/dashboard'></Redirect>;
 }
