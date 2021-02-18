@@ -50,6 +50,8 @@ export default function Availability(props) {
                       <input type="text"  name="availabilityFrom" value={props.availabilityFrom} onChange={props.handleChange}></input>
                       <label for="totime">To</label>
                       <input type="text" name="availabilityTo" value={props.availabilityTo} onChange={props.handleChange}></input>
+                      <br />
+                      <label>Select Time Zone</label>
                     <Select
                         listArray={timeZones} 
                         name='timeZones' 

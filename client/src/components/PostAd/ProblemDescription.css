@@ -48,11 +48,12 @@
     padding-left: 26px;
     flex-direction: column;
   }
-  .description textarea{
-    margin-top: 10px;
+  .problemDescription-description{
+    /*margin-top: 10px;*/
     width: 90%;
     height: 250px;
-    margin-bottom: 40px;
+    margin: 2%;
+    /*margin-bottom: 40px;*/
     border: solid 1px gray;
   }
   .description-container h3{
@@ -67,6 +68,11 @@
     margin-bottom: -5px;
     margin-left: -53px;
     /* height: 237px;*/
+  }
+
+  .problemDescription-title{
+    width: 90%;
+    margin: 2%;
   }
 
   .description-container p{

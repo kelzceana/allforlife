@@ -9,9 +9,10 @@ module.exports = (db) => {
   //api route for new job posting
 
   router.post('/', (req, res) => {
-    const { customerId, appointmentFor, description, symptomes, symptomesId, insurance, therapy, sexuality, age, language, ethnicity, faith, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo } = req.body.jobPostData;
+    const { customerId, appointmentFor, title, description, symptomes, symptomesId, country,insurance, therapy, sexuality, age, language, ethnicity, faith, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, timeZones} = req.body.jobPostData;
     const jobPostObj = {
       customerId: customerId,
+      title,
       appointmentFor:appointmentFor,
       description:description,
       therapy:therapy,
@@ -23,14 +24,15 @@ module.exports = (db) => {
       language:language,
       ethnicity:ethnicity,
       faith:faith,
-      country:'',
+      country:country,
       typeOfPayment:typeOfPayment,
       minPrice:minPrice,
       maxPrice:maxPrice,
       appointmentFrequency:appointmentFrequency,
       timeRequirement:timeRequirement,
       availabilityTo:availabilityTo,
-      availabilityFrom:availabilityFrom
+      availabilityFrom:availabilityFrom,
+      postCreationTimeZone:timeZones
     };
 
     createNewPost(jobPostObj, db)

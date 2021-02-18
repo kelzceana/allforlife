@@ -66,7 +66,7 @@ export default function Register(props) {
                     const providerData = decodeUser();
                     setError("");
                     props.setUser(providerData.user);
-                    props.setLoggedIn(true);
+                   
                 } else {
                     setError("User exists!");
                 }
@@ -79,7 +79,7 @@ export default function Register(props) {
         } 
     }
 
-    return !props.loggedIn ? (
+    return !props.user ? (
         <div className="register-container">
             <div className="register">
                 <form className="register-form" onSubmit={event => event.preventDefault()} >
@@ -123,6 +123,6 @@ export default function Register(props) {
                 </form>
             </div>       
         </div>
-    ):<Redirect to='/'></Redirect>;
+    ):<Redirect to='/provider/dashboard'></Redirect>;
     
 }

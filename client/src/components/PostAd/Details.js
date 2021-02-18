@@ -8,11 +8,6 @@ import Button from './Button'
 import Timeline from './TimeLine'
 
 
-
-const symptomes=["Addiction", "Adoption","Anxiety",
-"Alchol Use","depression", "Chronic illness", "Divorce",
- "Domestic Abuse","Drug Abuse", "Gambling","Parenting",
- "Sexual Addiction","Grief" ];
  const therapy=["Acceptance and Commitment (ACT)","Adlerian","Art Therapy", 
  "Attachment-based", "Biofeedback", "Coaching"];
  const insurrance=["1199SEIU","ACI Specialty Benefits", "AMERIGROUP"];

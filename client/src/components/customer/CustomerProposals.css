@@ -1,0 +1,81 @@
+.customer-proposal-view-container{
+  background-color: rgb(243, 241, 241);
+  height: 100vw;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.customer-proposal-main-container{
+  background-color: white;
+  width: 80%;
+  height: 80%;
+  overflow: scroll;
+  margin-top: 5%;
+}
+
+.customer-proposal-main-header{
+  background-color: #2c385c;
+  height:auto;
+  width:100%;
+  font-weight: bold;
+  align-items: center;
+  color: white;
+}
+
+.customer-proposal-body{
+  width:90%;
+  height: auto;
+  margin: 2%;
+  padding: 2%;
+  border-top: 2px solid #f5c017;
+  border-bottom: 2px solid #f5c017;
+  display: flex;
+  flex-direction: column;
+}
+.customer-proposal-inner{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.customer-proposal-profile-picture{
+  width:30%;
+  margin: 1%;
+}
+.customer-proposal-profile-picture img{
+  margin:0;
+  width:100%;
+  height:100%;
+  border-radius:10%;
+}
+.customer-proposal-profile-summary{
+  width:35%;
+  margin: 1%;
+  display: flex;
+  font-size: small;
+  flex-direction: column;
+  text-align: start;
+}
+.customer-proposal-item-body{
+  width:60%;
+  margin: 1%;
+}
+.customer-proposal-button{
+  width:100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.customer-proposal-button button{
+  width:15%;
+  padding: 1%;
+  font-weight: bold;
+  font-size: 0.9rem;
+  height: auto;
+  background:#f5c107;
+  border:1px solid #f5c107;
+  color:white;
+  border-radius: 1%;
+  cursor:pointer;
+}

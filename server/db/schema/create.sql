@@ -36,6 +36,7 @@ CREATE TABLE providers(
 ​
 CREATE TABLE job_postings(
     id SERIAL PRIMARY KEY NOT NULL,
+    title VARCHAR(255) DEFAULT NULL,
     customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
     appointmentFor VARCHAR(255),
     description TEXT,
@@ -77,6 +78,7 @@ CREATE TABLE job_proposals(
     price  INTEGER DEFAULT NULL,
     availability_days VARCHAR(255) DEFAULT NULL,
     availabilityFrom VARCHAR(255) DEFAULT NULL,
-    availabilityTo VARCHAR(255) DEFAULT NULL
+    availabilityTo VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 ​

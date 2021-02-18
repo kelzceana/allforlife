@@ -27,7 +27,10 @@ export default function PostDescription(props) {
                                 <div className='desc'><img src ="./image/Doubt.png"  alt="description"/></div>
                         </div>
                         <div className="description">
-                            <textarea value={props.description} name= "description" onChange={props.handleChange} > </textarea>
+                            <h5>Title:</h5>
+                            <textarea className="problemDescription-title" value={props.title} name="title" onChange={props.handleChange} ></textarea>
+                            <h5>Description</h5>
+                            <textarea className="problemDescription-description" value={props.description} name= "description" onChange={props.handleChange} > </textarea>
                             <div className="button-nav">
                             <Button onBack={props.onBack} name="Back"/>
                             <Button onNext={props.onNext}  name="Next"/>

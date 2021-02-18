@@ -3,16 +3,15 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
-const { getUserWithUserName, addUser, checksession } = require('../util/customerHelpers');
-const { requireAuth } = require("../middleware/authMiddleWare");
+const { getUserWithUserName, addUser } = require('../util/customerHelpers');
+
 //api routes
 
 module.exports = (db) => {
   //registration routes
-  router.post('/register',  async(req, res) => {
+  router.post('/register', async(req, res) => {
     const { prefix, firstName, lastName, userName, email } = req.body;
     let { password } = req.body;
-    //const hashedPassword = bcrypt.hashSync(password, 12);
     const salt = await bcrypt.genSalt(12);
     password = await bcrypt.hash(password, salt);
     if (!firstName || !lastName || !userName || !email || !password) {
@@ -37,7 +36,7 @@ module.exports = (db) => {
             user: {
               id: newUser.id,
               userName: newUser.username,
-              auth: requireAuth
+              type:'customer'
             }
           };
           //res.json(payload);
@@ -49,22 +48,15 @@ module.exports = (db) => {
               if (err) {
                 throw err;
               }
-              req.session.customerId = newUser.id;
-              console.log(req)
               res.json({token});
             }
           );
-
-          // req.session.customerId = newUser.id;
-          // req.session.customerId = newUser .id;
-          // res.json(newUser);
-          // return;
         })
           .catch(e => res.send("error"));
           
       })
       .catch(e => {
-        //res.status(500).json({ error: e.message});
+        res.status(500).json({ error: e.message});
       });
   });
   
@@ -74,19 +66,16 @@ module.exports = (db) => {
     getUserWithUserName(userName, db)
       .then(loggedUser => {
         if (!loggedUser) {
-          res.send(401).json({message:"Username does not exit"});
-
+          res.status(400).json({message:"Username does not exit"});
         } else if (!bcrypt.compareSync(password, loggedUser['password'])) {
-          res.status(400).json({message:"password is incorrect"});
-          return;
+          res.status(400).json({message:"Password is incorrect"});
         }
-
         //payload
         const payload = {
           user: {
             id: loggedUser.id,
             userName: loggedUser.username,
-            type: 'customer'
+            type:'customer'
           }
         };
         //sending tokens
@@ -98,18 +87,9 @@ module.exports = (db) => {
             if (err) {
               throw err;
             }
-            //req.session.customerId = loggedUser.id;
-            // res.cookie('customerId', loggedUser.id);
-            // console.log(res.cookie, "request")
             res.json({token});
           }
         );
-
-        // req.session.customerId = user.id;
-        // console.log(req.session, "heyyeyeyeyeyeyeyey");
-        // //console.log(req.session.customerId);
-        // req.session.customerId = user.id;
-        // res.json(user);
       })
       .catch(e => {
         if (e) {
@@ -117,13 +97,5 @@ module.exports = (db) => {
         }
       });
   });
-
-  router.get('/users', (req, res) => {
-    res.cookie('cookie', '123')
-    res.cookie('man', '123')
-    res.send("hello")
-    
-  })
   return router;
 };
-

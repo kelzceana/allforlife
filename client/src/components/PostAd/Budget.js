@@ -5,7 +5,7 @@ import Timeline from './TimeLine'
 
 
 import "./Budget.css";
-import img from "../../images/chart.png";
+
 
 const typeOfPayment=['Per session','Daily','Monthly','One time only','I dont know yet'];
 
@@ -31,11 +31,8 @@ export default function Budget(props) {
                         {...props} 
                         handleChange={props.handleChange}
                     />
-
-                  </div>
-                  <div className="budget-container-2">
-                  <div className="budget-range">
-                    <label for="budgetOption">Set your own budget range</label>
+                    <div className="budget-range">
+                    <label for="budgetOption"><h5 className="budget-h5">Set your own budget range</h5></label>
                     </div>
                     <div className="min-max-range">
                       <span>From</span>
@@ -48,6 +45,10 @@ export default function Budget(props) {
                         onChange={props.handleChange}></input>
                       <label for="maxPrice"></label>
                     </div>
+
+                  </div>
+                  <div className="budget-container-2" style={{width:'40%'}}>
+                      <img src='/image/Budget.jpg' alt="budget" style={{width:'70%'}}></img>
                 </div>
                 </div>
                 <div className="button-nav">
