@@ -33,7 +33,7 @@ module.exports = (db) => {
   router.get('/customer/:id', (req, res) => {
     getNumberOfProposalsByCustomerID(req.params.id, db)
       .then(response => {
-        response.json(response)
+        res.json(response)
       })
       .catch(e => res.json("error"));
   });

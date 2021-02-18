@@ -35,7 +35,7 @@ const getNumberOfProposalsByCustomerID = (id, db) => {
   ON job_posting_id = job_postings.id AND customer_id=$1 GROUP BY customer_id
   `,[id])
     .then(res => {
-      return res.rows;
+      return res.rows[0];
     })
     .catch(res => {
       return null;
