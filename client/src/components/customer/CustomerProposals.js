@@ -7,14 +7,10 @@ export default function CustomerProposal(props) {
 
   const [proposalInfo, setProposalInfo] = useState([]);
 
-  console.log("i am state proposalInfo " + JSON.stringify(proposalInfo));
-
   useEffect(() =>{
     axios.get(`http://localhost:8010/api/jobproposals/customerlist/${props.user.id}`)
     .then(res => {
-      console.log("I am response " + JSON.stringify(res.data));
-      if(res.status === 200){
-        console.log("I am inside res loop with status 200")
+      if(res.status === 200){ 
         setProposalInfo(res.data);
       }
      
