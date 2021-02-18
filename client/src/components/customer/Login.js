@@ -58,5 +58,5 @@ export default function Login(props) {
                 </form>
             </div>
         </div>
-    ): <Redirect to='//customer/dashboard'></Redirect>;
+    ): <Redirect to='/customer/dashboard'></Redirect>;
 }
