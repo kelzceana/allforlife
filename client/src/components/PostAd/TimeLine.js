@@ -12,20 +12,20 @@ export default function Timeline(props) {
 		background: '#207893', 
 		background: 'linear-gradient(to right, #f5c109 0%,#f5c109 100%)',
 		position:'absolute',
-		"z-index":2,
-		"border-radius":'50px',
+		zIndex:2,
+		borderRadius:'50px',
 		transition:'width 6s'
 	}
 
   return(
     <div id="progress-bar-container">
 	<ul>
-		<li class=""><div class="step-inner">Problem Description</div></li>
-		<li class=""><div class="step-inner">Details</div></li>
-		<li class=""><div class="step-inner">Preferences</div></li>
-		<li class=""><div class="step-inner">Budget</div></li>
-		<li class=""><div class="step-inner">Availability</div></li>
-		<li class=""><div class="step-inner">Review</div></li>
+		<li className=""><div className="step-inner">Problem Description</div></li>
+		<li className=""><div className="step-inner">Details</div></li>
+		<li className=""><div className="step-inner">Preferences</div></li>
+		<li className=""><div className="step-inner">Budget</div></li>
+		<li className=""><div className="step-inner">Availability</div></li>
+		<li className=""><div className="step-inner">Review</div></li>
 	</ul>
 	
 	<div id="line">
