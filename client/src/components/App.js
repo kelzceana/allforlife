@@ -14,6 +14,8 @@ import ProposalForm from "./ProposalAd/ProposalForm";
 import CustomerDashboard from './customer/CustomerDashboard';
 import CustomerProposals from './customer/CustomerProposals';
 import ProviderDashboard from './provider/ProviderDashboard';
+import Join from '../components/Chat/Join'
+import Chat from '../components/Chat/Chat'
 
 
 
@@ -68,6 +70,8 @@ function App() {
         <ProviderDashboard user={loggeduser}/> 
         :<Redirect to="/" />}
       </Route>
+      <Route path='/chat' exact component={Join} />
+      <Route path='/chat/new'  component={Chat} />
     </Switch>
     <Footer />
   </Router>
