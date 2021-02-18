@@ -48,6 +48,9 @@ export default function ProposalItem(props){
         if(props.insurance){
             info.push(props.insurance);
         }
+        if(props.postcreationtimezone){
+            info.push(props.postcreationtimezone);
+        }
         let infos="";
         for(let index=0; index< info.length; index++){
             if(index !== info.length-1){
