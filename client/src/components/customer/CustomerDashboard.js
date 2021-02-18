@@ -9,7 +9,9 @@ import { Link } from "react-router-dom";
 export default function CustomerDashboard(props) {
    let  id = props.user.id ;
     const [jobes,setJobes] = useState([]);
-    const [count,setCount] = useState([]);
+    const [count,setCount] = useState({
+        count:0
+    });
 
     useEffect(()=>{
             axios.get(`http://localhost:8010/api/jobpost/customer/${id}`).then(res =>{
@@ -23,10 +25,6 @@ export default function CustomerDashboard(props) {
             });
      },[id]);
 
-    let number=0;
-    if(count.length >0){
-        number=count[0].count;
-    }
 
     return(
         <>          
@@ -39,9 +37,12 @@ export default function CustomerDashboard(props) {
                 <h3>Offers  <span className="yellow-icon">◣</span> </h3>
                 <div className="profile-offers">
                     <img src={`/image/image1.png`} alt="dashboard"/>
-                    <div className="profile-newoffers">You have  {number} { number > 1 ? "offers" : "offer"} for your posts.</div>
+                    <div className="profile-newoffers">You have  {count.count} { count.count > 1 ? "offers" : "offer"} for your posts.</div>
                     <div className="profile-button">
-                        <button>CLICK TO SEE</button>
+                        <div className="profile-button-link-id"> 
+                          <Link className="profile-proposal-link"to="/customer/proposal" >CLICK TO SEE</Link>
+                        </div>
+                       
                     </div>
                 </div>
             </div>
