@@ -9,7 +9,8 @@ import Review from "./Review";
 import Landing from "./Landing"
 
 //helper filer
-import useVisualMode from '../../hooks/useVisualMode'
+import useVisualMode from '../../hooks/useVisualMode';
+import { useHistory } from "react-router-dom";
 
 
 
@@ -26,12 +27,16 @@ const REVIEW = "REVIEW";
 //PostAd component
 export default function PostAd(props){
 
+  //local variable to use history method of react router method
+  let history = useHistory();
+
   console.log(props)
   /*  hooks  */
   const {mode, transition, back} = useVisualMode(LANDING)
   const [timeline, setTimeline] = useState(0)
 
   const [state, setState]=useState({
+    title:'',
     appointmentFor:'',
     description:'',
     symptomesId: [],
@@ -94,8 +99,13 @@ function post() {
   }
   console.log(jobPostObj, "jobpost")
 
-  const response = axios.post('http://localhost:8010/api/jobpost', {jobPostData: jobPostObj}).then(res => {console.log(res,"response")}).catch(e=>console.log(e,"error"))
-
+  const response = axios.post('http://localhost:8010/api/jobpost', {jobPostData: jobPostObj})
+  .then(res => {
+    console.log(res,"response")
+  })
+  .catch(e=>console.log(e,"error"));
+  history.push('/customer/dashboard');
+  
   return response;
 }
 /* local functions end */
