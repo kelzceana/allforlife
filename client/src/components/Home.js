@@ -17,8 +17,11 @@ export default function Home(props){
               <p>and I need help for me or a loved one</p>
             </div>
             <div class="decision-making">
-              <NavLink className="decision-link" to="/login/customer">LOGIN</NavLink >
-              <NavLink className="decision-link" to="/register/customer">REGISTER</NavLink >
+            <div className="decision-making-link">
+                <NavLink className="decision-link" to='/login/customer' >
+                  SELECT
+                </NavLink>
+              </div>
             </div>
           </div>
         </div>
@@ -29,8 +32,11 @@ export default function Home(props){
               <p>looking for an opportunity</p>
             </div>
             <div class="decision-making">
-              <NavLink className="decision-link" to='/login/provider' >LOGIN</NavLink>
-              <NavLink className="decision-link" to='/register/provider'>REGISTER</NavLink >
+            <div className="decision-making-link">
+                <NavLink className="decision-link" to='/login/provider' >
+                  SELECT
+                </NavLink>
+              </div>
             </div>
           </div>
           <div className="home-customer-image">
