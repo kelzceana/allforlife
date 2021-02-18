@@ -10,14 +10,14 @@ const createNewPost = (jobPostObj, db) => {
     }
   }
   console.log(jobPostObj, "jobbbbbbb");
-  const {customerId, appointmentFor, description, symptomes,symptomesId, insurance,  therapy, age, sexuality, language, ethnicity, faith, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo } = jobPostObj;
+  const {customerId, appointmentFor,title, description, symptomes,symptomesId, insurance, country, therapy, age, sexuality, language, ethnicity, faith, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, postcreationtimezone } = jobPostObj;
   //console.log(symptomes, "hello")
   
   return db.query(`
-  INSERT INTO job_postings (customer_id, appointmentFor, description, therapy, sexuality, age, language, ethnicity, faith, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, insurance)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
+  INSERT INTO job_postings (customer_id, appointmentFor, title,description, therapy, sexuality, age, language, ethnicity, faith,country, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, insurance,postcreationtimezone)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17,$18,$19,$20)
   RETURNING id as job_posting_id;
-  `, [customerId, appointmentFor, description, therapy, sexuality, age, language, ethnicity, faith, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, insurance])
+  `, [customerId, appointmentFor,title, description, therapy, sexuality, age, language, ethnicity, faith, country, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, insurance,postcreationtimezone])
     .then(res => {
       const jobPostingId = res.rows[0].job_posting_id;
       //console.log(jobPostingId, "1st")
@@ -130,7 +130,7 @@ const getJobsPosting = (options, db) => {
 //function to get jobposting from the database for a specific customer ID
 const getJobsPostingByCustomerID = (id, db) => {
   return db.query(`
-  SELECT * FROM job_postings WHERE customer_id = $1`, [id])
+  SELECT * FROM job_postings WHERE customer_id = $1 ORDER BY created_at DESC`, [id])
   .then(res => {
     return res.rows;
   });
