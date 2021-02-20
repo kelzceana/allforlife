@@ -1,9 +1,10 @@
 import "./ProposalForm.css";
 import {useEffect, useState} from "react";
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from "axios";
 import ProposalItem from "./ProposalItem";
-import Home from "../Home";
+import { useHistory } from 'react-router-dom';
+
 
 
 
@@ -13,6 +14,7 @@ export default function ProposalForm(props){
     const { id } = useParams();
     const [jobe,setJobe] = useState([]);
     const [error, setError] = useState("");
+    let history = useHistory();
 
     const [state, setState]=useState({
         providerId :props.user.id,
@@ -53,7 +55,7 @@ export default function ProposalForm(props){
             axios.post(`http://localhost:8010/api/jobproposals`,state).then(res =>{
                 console.log(res.data);
                 setError("");
-               
+                history.push('/provider/dashboard');
             });
         } else {
             setError("Please fill all the fields !");

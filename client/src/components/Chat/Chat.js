@@ -7,30 +7,36 @@ import ProviderChat from './ProviderChat'
 import CustomerChat from './CustomerChat'
 
 
-export default function Chat({ location, username }){
-  console.log(location, "uu")
-  const data = queryString.parse(location.search)
-  console.log(username)
+export default function Chat({ location }){
+  const {ID1, ID2} = queryString.parse(location.search)
+  // const usersObj = {
+  //   customerID,
+  //   customerName
+  // }
+  // console.log(usersObj)
+  const messagesFromStorage = localStorage.getItem("chat")
   const [yourID, setYourID] = useState();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(messagesFromStorage? messagesFromStorage : []);
   const [textArea, setTextArea] = useState("");
   const socketRef = useRef();
   const ENDPOINT = 'http://localhost:8010'
  
-  //const username = "kelz"
+  const username = "kelz"
   
 
   //function handlers...... start
 
   const receiveMessage = (message) => {
     setMessages(oldMessages => [...oldMessages, message])
+    localStorage.setItem("chat", messages)
   }
 
   const sendMessage = (e) => {
     e.preventDefault(); 
-    const messageObj ={
+    const messageObj = {
       body: textArea,
-      id: yourID
+      id: yourID,
+      receiverID: ID2
     };
     setTextArea("");
     socketRef.current.emit("send message", messageObj);
@@ -43,11 +49,12 @@ export default function Chat({ location, username }){
   
   useEffect(() => {
     socketRef.current = io.connect(ENDPOINT);
-
     socketRef.current.on('getID', (socketID) => {
       setYourID(socketID);
     })
+    socketRef.current.emit('join', ID1)
     socketRef.current.on('message', (message) => {
+      console.log(message)
       receiveMessage(message)
     })
   }, []);
@@ -58,6 +65,7 @@ export default function Chat({ location, username }){
     <div className="card">
       <div className="chat-container">
         {messages.map((message, index) => {
+          console.log(message , yourID, "i am here")
           if (message.id === yourID) {
             return <CustomerChat key={index} name ={username} message={message.body} />
           }

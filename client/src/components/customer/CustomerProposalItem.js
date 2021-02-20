@@ -1,8 +1,8 @@
-
+import {Link } from 'react-router-dom';
 
 export default function CustomerProposalItem (props) {
   return (
-    <> 
+    <>  
     <div className="customer-proposal-body">
       <div className="customer-proposal-inner">
         <div className="customer-proposal-profile-picture">
@@ -23,7 +23,7 @@ export default function CustomerProposalItem (props) {
                   </p>
                 </div>
                 <br />
-                <div>
+                <div> 
                   <h5 style={{margin:"0"}}>MENTAL HEALTH PROVIDER</h5>
                   <p style={{fontSize:"0.5rem", margin:"0"}}>
                   {props.proposal.first_name} {props.proposal.last_name} {props.proposal.degree}, {props.proposal.location}
@@ -31,11 +31,12 @@ export default function CustomerProposalItem (props) {
                 </div>
               </div>
               <div className="customer-proposal-item-body">
-                {props.proposal.description}
+                <p>Description:{props.proposal.description}</p>
+                <p style={{fontSize:"0.6rem"}}>Budget: {props.proposal.price}</p>
               </div>
             </div>
             <div className="customer-proposal-button">
-              <button>More Info</button>
+             <Link to={`/moreinfo/${props.proposal.id}`}>More Info</Link>
             </div>
             </div>
           </>

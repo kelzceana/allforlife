@@ -17,7 +17,7 @@ export default function Join(){
       <div>
         <input placeholder="Provider" className="joinInput mt-20" type="text" onChange={(event) => setProvider(event.target.value)} />
       </div>
-      <Link onClick={e => (!customer || !provider) ? e.preventDefault() : null} to={`/chat/new?customerID=${customer}&cutomername=kelz22&providername=ramya22&provider=${provider}`}>
+      <Link onClick={e => (!customer || !provider) ? e.preventDefault() : null} to={`/chat/new?name=${customer}`}>
         <button className={'button mt-20'} type="submit">Sign In</button>
       </Link>
     </div>
