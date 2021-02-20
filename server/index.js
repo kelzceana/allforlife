@@ -17,13 +17,20 @@ const io = socketio(server, {
     methods: ["GET", "POST"]
   }
 });
-
+let people = {};
 // socket.io
 io.on('connection', (socket) => {
   console.log("a user has connected");
+  socket.on('join', (name) => {
+    people[name] = socket.id;
+  });
+  
   socket.emit("getID", socket.id);
   socket.on("send message", body =>{
-    io.emit("message", body);
+    console.log(people, "peoppppp")
+    console.log(body, 'bodu')
+    socket.emit("message", body);
+    io.to(people[body.receiverID]).emit("message", body);
   });
 
   socket.on("disconnect", () => {
@@ -31,7 +38,7 @@ io.on('connection', (socket) => {
   });
 });
 
-
+ 
 // routes constants
 const users = require("./routes/users");
 const jobPost = require("./routes/jobPost");

@@ -10,14 +10,14 @@ const createNewPost = (jobPostObj, db) => {
     }
   }
   console.log(jobPostObj, "jobbbbbbb");
-  const {customerId, appointmentFor,title, description, symptomes,symptomesId, insurance, country, therapy, age, sexuality, language, ethnicity, faith, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, postcreationtimezone } = jobPostObj;
+  const {customerId, title, appointmentFor, description, symptomes,symptomesId, insurance,  therapy, age, sexuality, language, ethnicity, faith, country, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, postcreationtimezone} = jobPostObj;
   //console.log(symptomes, "hello")
   
   return db.query(`
-  INSERT INTO job_postings (customer_id, appointmentFor, title,description, therapy, sexuality, age, language, ethnicity, faith,country, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, insurance,postcreationtimezone)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17,$18,$19,$20)
+  INSERT INTO job_postings (customer_id, title, appointmentFor, description, therapy, sexuality, age, language, ethnicity, faith, country, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, insurance,postCreationTimeZone)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,$19,$20)
   RETURNING id as job_posting_id;
-  `, [customerId, appointmentFor,title, description, therapy, sexuality, age, language, ethnicity, faith, country, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, insurance,postcreationtimezone])
+  `, [customerId, title,appointmentFor, description, therapy, sexuality, age, language, ethnicity, faith, country, typeOfPayment, maxPrice, minPrice, appointmentFrequency, timeRequirement, availabilityFrom, availabilityTo, insurance,postcreationtimezone])
     .then(res => {
       const jobPostingId = res.rows[0].job_posting_id;
       //console.log(jobPostingId, "1st")
@@ -29,7 +29,7 @@ const createNewPost = (jobPostObj, db) => {
         `, [symptome])
           .then(res => {
             return res.rows[0];
-          })
+          }) 
           .catch(res => {
             return null;
           });
@@ -47,7 +47,6 @@ const getSymptomes = (db) => {
       return res.rows;
     });
 };
-
 //function to get sympotomes from the database for a specific ID
 const getSymptomesByID = (id, db) => {
   
@@ -61,19 +60,18 @@ const getSymptomesByID = (id, db) => {
 };
 //function to get jobposting from the database for a specific ID
 const getJobsPostingByID = (id, db) => {
-
   return db.query(`
   SELECT * FROM job_postings WHERE id = $1
 `, [id])
-    .then(res => {
-      return res.rows;
-    });
-};
+  .then(res => {
+    return res.rows;
+  });
+}
 //get jobs posting with a specific options
 const getJobsPosting = (options, db) => {
   
-  const min = parseInt(options[3]);
-  const max = parseInt(options[4]);
+  const min=parseInt(options[3]);
+  const max=parseInt(options[4]);
 
   const queryParams = [];
   let queryString = `SELECT * FROM job_postings `;
@@ -87,15 +85,15 @@ const getJobsPosting = (options, db) => {
   }
  */
 
-  if (options[0] !== "null" && options[0] !== "Fixed Price") {
+  if (options[0]!=="null" && options[0]!=="Fixed Price") {
     queryParams.push(`${options[0]}`);
     queryString += ` WHERE typeOfPayment LIKE $${queryParams.length} `;
   }
-  if (options[0] === "Fixed Price") {
+  if (options[0]==="Fixed Price") {
     queryString += ` WHERE typeOfPayment not LIKE 'Hourly' `;
   }
   
-  if(queryParams.length < 1 && options[0] === "Fixed Price" &&  options[4]!=="0") {
+  if(queryParams.length < 1 && options[0]==="Fixed Price" &&  options[4]!=="0") {
     queryString += ` and`;
   }
   if(queryParams.length < 1 && options[0]!=="Fixed Price" &&  options[4]!=="0") {
@@ -144,4 +142,3 @@ module.exports = {
   getJobsPosting,
   getJobsPostingByCustomerID
 };
-
