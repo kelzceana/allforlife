@@ -1,6 +1,4 @@
 import "./ProviderDashboard.css";
-import {useState, useEffect} from "react";
-import axios from "axios";
 import ProposalAd from "../ProposalAd";
 
 export default function ProviderDashboard (props) {

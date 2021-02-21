@@ -3,12 +3,9 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
 
-export default function ProposalItem(props){
-    
+export default function Follower(props){
     const [sympotomes,setSymptomes]=useState([]);
     const[show,setShow]=useState(true);
-
-    console.log("I am show" + show)
 
     //get symptomes for a specific job posting ID 
     useEffect(() => {
@@ -16,21 +13,20 @@ export default function ProposalItem(props){
           setSymptomes(res.data);     
         });      
     
-    },[]);
-
-      //check if the povider already applied to this job
-      useEffect(() => {
-      if(props && props.providerId){
-      axios.get(`http://localhost:8010/api/jobproposals/look/${props.providerId}/${props.id}`).then(res =>{
-      console.log("I am from provider proposal count" + res.data); 
-      if(res.data.length > 0) {
-      setShow(false);
-      } else{
-      setShow(true);
-      }
-      }); 
-      } 
       },[]);
+    //check if the povider already applied to this job
+    useEffect(() => {
+        if(props && props.user){
+         axios.get(`http://localhost:8010/api/jobproposals/look/${props.user.id}/${props.id}`).then(res =>{
+           console.log(res.data);  
+           if(res.data.length > 0)  {
+               setShow(false);
+           } else{
+               setShow(true);
+           }
+         });  
+        }       
+    },[]);
   
     //show somes others informations about job posting
     function showinfos(){
@@ -66,7 +62,7 @@ export default function ProposalItem(props){
             info.push(props.insurance);
         }
         if(props.postcreationtimezone){
-            info.push(props.postcreationtimezone);
+          info.push(props.postcreationtimezone);
         }
         let infos="";
         for(let index=0; index< info.length; index++){
@@ -79,25 +75,25 @@ export default function ProposalItem(props){
         return infos;
     }
     return(
-        <article className="proposalad-list-item">
-                  <div className="item-description">
+        <article className="card">
+                  <div className="card-title">
                      <h3>{props.title}</h3>
-                     <h4> {showinfos()} </h4>
-                     <p> <strong>Description</strong> : {props.description}</p>
+                     <div> <strong>Description</strong> :</div>
+                     <div> {props.description}</div>
+                     <div>{showinfos()}</div>
                      <div className="item-symptomes-container">
                          {sympotomes.map(symptome=>{return (
                             <div className="item-symptomes" key={symptome.id}>{symptome.name}</div>
                          )})}                    
                     </div>
                   </div>
-                  <div className="item-budget-apply">
-                      <div className="item-budget">Budget: ${props.maxprice}</div>
-                      <Link onClick={e => (!props.customer_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.providerId}&ID2=${props.customer_id}&name=${props.providerUsername}`}>
-                        <button  className="apply-active" type="submit">chat</button>
-                      </Link> 
-                      <Link to={`/proposalform/${props.id}`}>
-                        {show && <button className="apply-active" >APPLY</button>}
-                        {!show && <button disabled className="proposal-apply-disabled">Already applied</button>}
+                  <div className="followers-budget">
+                      <div className="budget">Budget: ${props.maxprice}</div>
+                      <Link to={`/ProposalForm/${props.id}`}>
+                      {show && 
+                      <button className="apply-active" >APPLY</button>}
+                       {!show && 
+                      <button disabled className="apply-disabled">Already applied</button>}
                       </Link>
                   </div>
 

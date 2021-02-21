@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { createNewPost, getSymptomes, getJobsPosting,getSymptomesByID,getJobsPostingByID, getJobsPostingByCustomerID } = require('../util/jobPostHelpers');
+const { createNewPost, getSymptomes, getJobsPosting,getSymptomesByID,getJobsPostingByID, getJobsPostingByCustomerID, dealAccept } = require('../util/jobPostHelpers');
 
 //api route
 module.exports = (db) => {
@@ -38,11 +38,11 @@ module.exports = (db) => {
 
     createNewPost(jobPostObj, db)
       .then(response => {
-        res.send({response: response,
+        res.status(200).send({response: response,
           message:"saved data"});
         return;
       })
-      .catch(e => res.send("jobpost error"));
+      .catch(e => res.status(400).send("jobpost error"));
   });
 
 
@@ -50,18 +50,15 @@ module.exports = (db) => {
   router.get('/symptomes', (req, res) => {
     getSymptomes(db)
       .then(response => {
-        res.send(response);
+        res.status(200).send(response);
       })
-      .catch(e => res.send(e));
+      .catch(e => res.status(400).send(e));
   });
   //api route to retreive symptomes for one job posting
      router.get('/symptomes/:id', (req, res) => {
       getSymptomesByID(req.params.id, db)
-        .then(response => {
-          
-          res.json(response);
-        })
-        .catch(e => res.json(e));
+        .then(response => res.status(200).json(response))
+        .catch(e => res.status(400).json(e));
     });
   // api get jobposting that has an id 
   router.get('/:id', (req, res) => {
@@ -79,20 +76,26 @@ module.exports = (db) => {
 
     getJobsPosting(options, db)
     .then(response => {
-      res.json(response);
+      res.status(200).json(response);
     })
-    .catch(e => res.json({e}));
+    .catch(e => res.status(400).json({e}));
   });
 
   // api to retreive jobposting for a specific customer 
   router.get('/customer/:id', (req, res) => {
-    console.log(req.params.id);
     getJobsPostingByCustomerID(req.params.id, db)
       .then(response => {
-        res.json(response);
+        res.status(200).json(response);
       })
-      .catch(e => res.json({e}));
+      .catch(e => res.status(400).json({e}));
   });
+
+  //api to update is_accepted to true 
+  router.post('/accepted/:id',(req, res) => {
+    dealAccept(req.params.id, db)
+    .then(response => res.status(200).json(response))
+    .catch(e => res.status(400).json({e}));
+  })
 
   return router;
 };

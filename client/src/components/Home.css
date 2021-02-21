@@ -5,16 +5,29 @@
 }
 
 .home-container{
-  background-color:rgb(243, 241, 241);
+  position: relative; 
   width: 100%;
-  height: 25vw;
+
   display:flex;
   flex-direction: row;
   justify-content: space-around;
-  border-bottom: solid 10px #f5c017;
+
+}
+.home-container::before {
+  background-image: url('../images/customer_login.png');
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.2;
 }
 
+
 .home-customer-container{
+  position: relative;
+  background-color: rgb(248, 238, 238 , 1);
   border: solid 2px #f5c017;
   width:50%;
   margin: 5%;
@@ -56,7 +69,6 @@
   width: 100.5%;
   height: 50%;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
@@ -81,6 +93,214 @@
   height: 35%;
 }
 
-.proposal-home-container .proposalad-filter{
-   display: none;
+
+/* my code */
+
+.jobposting-home-container-title{
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
+  margin-left: 1rem;
+  font-weight: bold;
+  color: #2c385c;
+  width: 100%;
+}
+.jobposting-home-container-title  .yellow-icon{
+  font-size: 2rem;
+}
+.jobposting-home-container-title .home-line{
+  width: 75%;
+  margin-left: 10px;
+  border-bottom: #2c385c 2px solid;
+}
+.panel {
+  background-image: url('../images/woman_big-min.png'), linear-gradient(to bottom right, #fff, #fbe4cd) !important;
+  background-repeat: no-repeat;
+  background-position: right!important;
+  background-size: contain!important;
+  width: 100vw;
+  height: 30vw;
+ 
+}
+.panel-text{
+  color: #4b5779 ;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding-top: 10%;
+  padding-left: 5%;
+}
+.panel-text2{
+  color: #f5c107 ;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding-top: 2%;
+  padding-left: 5%;
+}
+.panel-text2 span {
+  color: #4b5779 ;
+}
+/*
+=============== 
+Pagination
+===============
+*/
+
+
+.followers {
+  width: 100%;
+  background-color: #fbe4cd;
+}
+.followers-container {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  background-color: #fbe4cd;
+  justify-content: center;
+  width: 91%;
+  margin:auto;
+}
+
+
+.card-title h3{
+  color: #2c385c;
+  margin-bottom: 10px;
+}
+
+.card-title .item-symptomes-container{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.card-title .item-symptomes{
+  margin-bottom: 10px;
+
+}
+
+.followers-budget .budget {
+  color: #4b5779;
+  font-weight: bold;
+}
+.followers-budget button {
+  cursor:pointer;
+  background:#f5c107;
+  border:1px solid #f5c107;
+  color: white;
+  font-weight: bold;
+  margin-top:10px;
+  font-size: 1rem;
+  padding-right: 6%;
+  padding-left: 6%;
+  padding-top:1%;
+  padding-bottom:1%;
+}
+
+.card {
+  margin-top: 2rem;
+  background: white;
+  border-radius: 25px;
+  border: solid 1px #f5c107;
+  box-shadow: gray;
+  padding: 1rem 2rem;
+  text-align: center;
+  color: gray;
+  letter-spacing: 0.1rem;
+  width: 50%;
+}
+
+
+.followers-btn-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.followers-page-btn span {
+  color:  #4b5779;
+  font-size: 1.6rem;
+}
+.followers-page-btn {
+  width: 3rem;
+  height: 3rem;
+  border-color: transparent;
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0.5rem;
+  transition: var(--transition);
+}
+.followers-active-btn span {
+  background: transparent;
+  color: #f5c107;
+}
+.followers-prev-btn,
+.followers-next-btn {
+  color: #f5c107;
+  background: transparent;
+  border-color: transparent;
+  font-weight: bold;
+  text-transform: capitalize;
+  letter-spacing: 0.3rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 700px) {
+  .followers-container {
+    margin-top:30px;
+    flex-direction: column;
+    width: 90%;
+    gap: 2rem;
+  }
+  .card {
+    width: 80%;
+    margin:auto
+  }
+
+  .jobposting-home-container-title{
+    
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    margin-left: 1rem;
+  }
+  .jobposting-home-container-title  .yellow-icon{
+    font-size: 1rem;
+  }
+  .jobposting-home-container-title .home-line{
+    width: 75%;
+    margin-left: 10px;
+    border-bottom: #2c385c 2px solid;
+  }
+
+  .home-container{
+    flex-direction: column;
+  }
+  .home-customer-container{
+    width: 90%;
+  }
+  .panel-text{
+    width: 40%;
+    font-size: 1rem;
+  }
+  .panel-text2{
+    font-size: 1rem;
+  }
+
+}
+
+@media screen and (min-width: 775px) {
+  .followers-btn-container {
+    margin: 0 auto;
+    max-width: 700px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .home-customer-container{
+    flex-direction: column;
+  }
+  .home-inner-container, .home-customer-image{
+width: 100%;
+  }
 }

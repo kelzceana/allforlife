@@ -127,7 +127,7 @@ export default function ProposalAd(props){
               <Filter title="Budget"  name= "budget" onChange={handleChange} list={filterData.budget}/>
           </aside> 
         
-          <section className="proposalad-list">
+          <section className="proposalad-list" style={{height:"70%" ,overflowY:'scroll'}}>
               <div className="proposalad-list-header">
                   <div className="proposalad-list-header-counter">
                     <FaWifi style= { {color: "#f5c107", fontSize: "1.5em", transform: "rotate(45deg)"}}/> 
@@ -141,12 +141,13 @@ export default function ProposalAd(props){
                       </select>
                   </div>
                  </div> 
-
+                 <div className="proposalslist" >
                  {jobesPostingData.map(job=>{
                    return(
                     <ProposalItem  key ={job.id} {...job} providerId={props.providerId} providerUsername={props.providerUsername}/>
                    )
                  })}
+                 </div>
                  <div className="proposal-footer"></div>
           </section> 
         </section>

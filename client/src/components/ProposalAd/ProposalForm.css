@@ -1,7 +1,6 @@
 .proposalform-container{
     background-color:rgb(243, 241, 241);
     width: 100%;
-    height: 100%;
     border: solid 0.5px rgb(243, 241, 241);   
     display: flex;
     flex-direction: column;
@@ -105,7 +104,6 @@
 .form-availabilty{
     display: flex;
     width: 100%;
-   
 }
 .form-availabilty-days{
     width: 50%;

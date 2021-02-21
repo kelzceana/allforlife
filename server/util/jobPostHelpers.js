@@ -69,62 +69,48 @@ const getJobsPostingByID = (id, db) => {
 }
 //get jobs posting with a specific options
 const getJobsPosting = (options, db) => {
-  
-  const min=parseInt(options[3]);
-  const max=parseInt(options[4]);
-
+  const minPrice=parseInt(options[3]);
+  const maxPrice=parseInt(options[4]);
+  const minNumberOfProposals=parseInt(options[1]);
+  const maxNumberOfProposals=parseInt(options[2]);
   const queryParams = [];
-  let queryString = `SELECT * FROM job_postings `;
-  
-  
-  /*if(options[2]==="0"){
-
-  } else {
-  let queryString = `SELECT job_postings.*  count(job_postings.id)
-  FROM job_postings INNER JOIN job_offrings ON `;
+  let queryString ="";
+  // check if number of proposals is included in the filter
+  if(options[2] === "0"){
+  queryString = `SELECT * FROM job_postings WHERE is_accepted='false' `;
+  } else{
+  queryString = `select job_postings.* ,count(*) from job_postings 
+  left join job_proposals on job_postings.id=job_posting_id WHERE job_postings.is_accepted='false' `;
   }
- */
-
-  if (options[0]!=="null" && options[0]!=="Fixed Price") {
-    queryParams.push(`${options[0]}`);
-    queryString += ` WHERE typeOfPayment LIKE $${queryParams.length} `;
+  if (options[0]!=="null") {
+  queryParams.push(`${options[0]}`);
+  queryString += ` and typeOfPayment LIKE $${queryParams.length} `;
   }
-  if (options[0]==="Fixed Price") {
-    queryString += ` WHERE typeOfPayment not LIKE 'Hourly' `;
-  }
-  
-  if(queryParams.length < 1 && options[0]==="Fixed Price" &&  options[4]!=="0") {
-    queryString += ` and`;
-  }
-  if(queryParams.length < 1 && options[0]!=="Fixed Price" &&  options[4]!=="0") {
-    queryString += ` where`;
-  }
-  if(queryParams.length >= 1  && options[4]!=="0"){
-    queryString += ` and`;
-  }
-
-
   if (options[4]!=="0") {
-    queryParams.push(min);
-    queryParams.push(max);
-    queryString += `  minPrice >= $${queryParams.length-1}  and maxPrice <= $${queryParams.length} `;
+  queryParams.push(minPrice);
+  queryParams.push(maxPrice);
+  queryString += ` and minPrice >= $${queryParams.length-1} and maxPrice <= $${queryParams.length} `;
   }
-
+  // check if number of proposals is included in the filter
+  if(options[2] !== "0"){
+  queryParams.push(minNumberOfProposals);
+  queryParams.push(maxNumberOfProposals);
+  queryString += `group by job_postings.id 
+  HAVING count(*) >= $${queryParams.length-1} and count(*) <= $${queryParams.length}`;
+  }
   if(options[5]==="DESC"){
-    queryString += ` 
-      ORDER BY  created_at DESC`;
+  queryString += ` 
+  ORDER BY created_at DESC`;
   } else {
-    queryString += ` 
-      ORDER BY  created_at`;
+  queryString += ` 
+  ORDER BY created_at`;
   }
-
-  console.log(queryString, queryParams);
+  
   return db.query(queryString,queryParams)
   .then(res => {
-    return res.rows;
+  return res.rows;
   });
-}
-
+  }
 //function to get jobposting from the database for a specific customer ID
 const getJobsPostingByCustomerID = (id, db) => {
   return db.query(`
@@ -134,11 +120,17 @@ const getJobsPostingByCustomerID = (id, db) => {
   });
 }
 
+//function to change is_accepted to true on accepting the deal
+const dealAccept = (id, db) => {
+  return db.query(`UPDATE job_postings  SET is_accepted = true WHERE id = $1`,[id])
+}
+
 module.exports = {
   createNewPost,
   getSymptomes,
   getSymptomesByID,
   getJobsPostingByID,
   getJobsPosting,
-  getJobsPostingByCustomerID
+  getJobsPostingByCustomerID,
+  dealAccept
 };

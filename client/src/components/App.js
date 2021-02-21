@@ -42,7 +42,7 @@ function App() {
         <Register user={loggeduser}  setUser={setUser} />
       </Route>
       <Route path="/" exact>
-        <Home />
+        <Home user={loggeduser}/>
       </Route>
       <Route path="/postAd" exact>
         {(loggeduser && loggeduser.type === "customer") ? 
@@ -72,8 +72,8 @@ function App() {
         :<Redirect to="/" />}
       </Route>
       <Route path='/moreinfo/:id' exact>
-          <MoreInfo user={loggeduser} />
-        </Route>  
+         {(loggeduser && loggeduser.type === "customer") && <MoreInfo user={loggeduser} />}
+      </Route>  
       
       <Route path='/chat'  component={Chat} />
     </Switch>
