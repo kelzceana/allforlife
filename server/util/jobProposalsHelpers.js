@@ -66,7 +66,7 @@ const getProposalsForProvider = (providerId, jobId, db) =>{
   return db.query(`SELECT * FROM job_proposals where 
   provider_id =$1 and job_posting_id=$2`,[providerId,jobId])
   .then(res=>res.rows)
-  .catch( e => null);
+  .catch( e => []);
   }
   
   
