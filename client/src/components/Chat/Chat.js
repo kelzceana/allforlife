@@ -8,7 +8,7 @@ import CustomerChat from './CustomerChat'
 
 
 export default function Chat({ location }){
-  const {ID1, ID2} = queryString.parse(location.search)
+  const {ID1, ID2, name} = queryString.parse(location.search)
   // const usersObj = {
   //   customerID,
   //   customerName
@@ -16,12 +16,13 @@ export default function Chat({ location }){
   // console.log(usersObj)
   const messagesFromStorage = localStorage.getItem("chat")
   const [yourID, setYourID] = useState();
-  const [messages, setMessages] = useState(messagesFromStorage? messagesFromStorage : []);
+  const [receiverName, setReceiverName] = useState("")
+  const [messages, setMessages] = useState([]);
   const [textArea, setTextArea] = useState("");
   const socketRef = useRef();
   const ENDPOINT = 'http://localhost:8010'
  
-  const username = "kelz"
+  //const username = "kelz"
   
 
   //function handlers...... start
@@ -36,7 +37,8 @@ export default function Chat({ location }){
     const messageObj = {
       body: textArea,
       id: yourID,
-      receiverID: ID2
+      receiverID: ID2,
+      sendername: name
     };
     setTextArea("");
     socketRef.current.emit("send message", messageObj);
@@ -54,8 +56,8 @@ export default function Chat({ location }){
     })
     socketRef.current.emit('join', ID1)
     socketRef.current.on('message', (message) => {
-      console.log(message)
       receiveMessage(message)
+      setReceiverName(message.sendername !== name? message.sendername : null)
     })
   }, []);
 
@@ -65,11 +67,10 @@ export default function Chat({ location }){
     <div className="card">
       <div className="chat-container">
         {messages.map((message, index) => {
-          console.log(message , yourID, "i am here")
           if (message.id === yourID) {
-            return <CustomerChat key={index} name ={username} message={message.body} />
+            return <CustomerChat key={index} name ={name} message={message.body} />
           }
-          return <ProviderChat key={index}  name ={username} message={message.body} />
+          return <ProviderChat key={index}  name ={receiverName} message={message.body} />
      
         })}
       </div>
