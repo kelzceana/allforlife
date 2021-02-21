@@ -32,7 +32,7 @@ const createNewProposal = (jobProposalObj, db) => {
 //get the number of proposales for specific customer
 const getNumberOfProposalsByCustomerID = (id, db) => {
   return db.query(` SELECT count(job_proposals.id) FROM job_proposals INNER JOIN job_postings 
-  ON job_posting_id = job_postings.id AND customer_id=$1 GROUP BY customer_id
+  ON job_posting_id = job_postings.id  WHERE job_postings.is_accepted = 'false' AND customer_id=$1 GROUP BY customer_id
   `,[id])
     .then(res => res.rows[0])
     .catch(res => null);
@@ -45,7 +45,7 @@ const getProposalsByCustomerID = (id, db) => {
   job_proposals.* FROM job_proposals 
   INNER JOIN job_postings ON job_posting_id = job_postings.id 
   INNER JOIN providers ON provider_id = providers.id 
-  AND customer_id=$1 ORDER BY created_at DESC;`,[id])
+  WHERE job_postings.is_accepted = 'false' AND customer_id=$1 ORDER BY created_at DESC;`,[id])
   .then(res => res.rows)
   .catch(e => null);
 }

@@ -1,13 +1,15 @@
 import './MoreInfo.css';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useParams, Link} from 'react-router-dom';
+import {useParams, Link, useHistory} from 'react-router-dom';
+
 
 export default function MoreInfo(props){
 
   const { id } =useParams();
   const [showDetails, setShowDetails] = useState(true);
   const [proposalItem, setProposalItem] = useState(null);
+  let history = useHistory();
   console.log("I am proposalItem", proposalItem);
 
   useEffect(() =>{
@@ -24,6 +26,13 @@ export default function MoreInfo(props){
   //   axios.post(`http://localhost:8010/api/notifications/${proposalItem.id}`)
   //   .then(res => console.log(res.data));
   // } 
+
+  const dealAccept = () => {
+    axios.post(`http://localhost:8010/api/jobpost/accepted/${proposalItem.job_posting_id}`)
+    .then(() => {
+      history.push('/customer/dashboard');
+    })
+  }
 
    return proposalItem && <div className="customer-proposal-view-container">
        <div className="customer-proposal-main-containerr" style={{overflowY:'unset'}}>
@@ -130,9 +139,7 @@ export default function MoreInfo(props){
          <Link className="offers-back" to={`/customer/proposal`}>
          <button > Back </button>
          </Link>
-         <Link className="offers-accept" to={``}>
-         <button > Accept Deal </button>
-         </Link>
+         <button className="offers-accept" onClick={dealAccept}> Accept Deal </button>        
          </div>
        </div>
       </div>
