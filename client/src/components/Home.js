@@ -80,7 +80,7 @@ export default function Home(props){
       <div>JOB POSTING  <span className="yellow-icon">◣</span></div>
       <div className="home-line"></div>
     </div>   
-    <HomeProposalItem />
+    <HomeProposalItem user={props.user} />
 
     </>
   )

@@ -141,7 +141,7 @@ export default function ProposalAd(props){
                       </select>
                   </div>
                  </div> 
-                 <div className="proposalslist" style={{overflowY:'scroll'}}>
+                 <div className="proposalslist" style={{height:"90%" ,overflowY:'scroll'}}>
                  {jobesPostingData.map(job=>{
                    return(
                     <ProposalItem  key ={job.id} {...job} providerId={props.providerId} providerUsername={props.providerUsername}/>

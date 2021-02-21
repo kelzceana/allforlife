@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function Follower(props){
     const [sympotomes,setSymptomes]=useState([]);
+    const[show,setShow]=useState(true);
 
     //get symptomes for a specific job posting ID 
     useEffect(() => {
@@ -13,6 +14,19 @@ export default function Follower(props){
         });      
     
       },[]);
+    //check if the povider already applied to this job
+    useEffect(() => {
+        if(props && props.user){
+         axios.get(`http://localhost:8010/api/jobproposals/look/${props.user.id}/${props.id}`).then(res =>{
+           console.log(res.data);  
+           if(res.data.length > 0)  {
+               setShow(false);
+           } else{
+               setShow(true);
+           }
+         });  
+        }       
+    },[]);
   
     //show somes others informations about job posting
     function showinfos(){
@@ -66,6 +80,7 @@ export default function Follower(props){
                      <h3>{props.title}</h3>
                      <div> <strong>Description</strong> :</div>
                      <div> {props.description}</div>
+                     <div>{showinfos()}</div>
                      <div className="item-symptomes-container">
                          {sympotomes.map(symptome=>{return (
                             <div className="item-symptomes" key={symptome.id}>{symptome.name}</div>
@@ -75,7 +90,10 @@ export default function Follower(props){
                   <div className="followers-budget">
                       <div className="budget">Budget: ${props.maxprice}</div>
                       <Link to={`/ProposalForm/${props.id}`}>
-                      <button>APPLY</button>
+                      {show && 
+                      <button className="apply-active" >APPLY</button>}
+                       {!show && 
+                      <button disabled className="apply-disabled">Already applied</button>}
                       </Link>
                   </div>
 

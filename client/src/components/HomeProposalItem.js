@@ -62,12 +62,12 @@ export default function HomeProposalItem(props){
         return newFollowers
       }
     
-      return (
+      return ( followers &&
         <main>
           <section className='followers'>
             <div className='followers-container'>
               {followers.map((follower) => {
-                return <Follower key={follower.id} {...follower} />
+                return <Follower key={follower.id} {...follower} user={props.user} />
               })}
             </div>
               <div className='followers-btn-container'>
