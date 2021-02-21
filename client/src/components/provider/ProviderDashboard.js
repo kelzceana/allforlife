@@ -1,5 +1,6 @@
 import "./ProviderDashboard.css";
 import ProposalAd from "../ProposalAd";
+import NotificationItem from "./NotificationItem";
 
 export default function ProviderDashboard (props) {
 
@@ -16,6 +17,11 @@ export default function ProviderDashboard (props) {
                 <ProposalAd providerId={props.user.id} providerUsername={props.user.userName}/>
             </div>
         </div>
+        <div className="profile-proposals-container">
+            <h3>Notifications <span className="yellow-icon">◣</span> </h3>
+            {/*need to map notifications here*/} <NotificationItem />
+        </div>
+
     </section>
     </>
 )
