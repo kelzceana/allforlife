@@ -56,6 +56,7 @@ CREATE TABLE job_postings(
     availabilityFrom VARCHAR(255),
     availabilityTo VARCHAR(255),
     postCreationTimeZone VARCHAR(255),
+    is_accepted VARCHAR(255) DEFAULT FALSE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 ​
@@ -79,6 +80,7 @@ CREATE TABLE job_proposals(
     availability_days VARCHAR(255) DEFAULT NULL,
     availabilityFrom VARCHAR(255) DEFAULT NULL,
     availabilityTo VARCHAR(255) DEFAULT NULL,
+    is_accepted VARCHAR(255) DEFAULT FALSE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 ​
