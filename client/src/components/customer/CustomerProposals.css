@@ -67,8 +67,8 @@
   justify-content: flex-end;
 }
 
-.customer-proposal-button button{
-  width:15%;
+.link-button-button{
+  width:12%;
   padding: 1%;
   font-weight: bold;
   font-size: 0.9rem;
@@ -78,4 +78,5 @@
   color:white;
   border-radius: 1%;
   cursor:pointer;
+  text-decoration: none;
 }

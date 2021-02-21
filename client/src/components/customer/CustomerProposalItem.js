@@ -36,7 +36,8 @@ export default function CustomerProposalItem (props) {
               </div>
             </div>
             <div className="customer-proposal-button">
-             <Link to={`/moreinfo/${props.proposal.id}`}>More Info</Link>
+            <Link className="link-button-button"to={`/moreinfo/${props.proposal.id}`}>
+               More Info</Link>
             </div>
             </div>
           </>
