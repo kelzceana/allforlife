@@ -15,7 +15,7 @@ export default function ProviderDashboard (props) {
         <div className="profile-proposals-container">
             <div className="profile-proposals">
                 <h3>Look for opportunities <span className="yellow-icon">◣</span> </h3>
-                <ProposalAd />
+                <ProposalAd providerId={props.user.id} providerUsername={props.user.userName}/>
             </div>
         </div>
     </section>

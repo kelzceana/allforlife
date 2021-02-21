@@ -1,30 +1,53 @@
-
 import "./CustomerDashboard.css";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import axios from "axios";
+import io from 'socket.io-client';
 import ProposalItem from "../ProposalAd/ProposalItem";
 import { Link } from "react-router-dom";
 
+const ENDPOINT = 'http://localhost:8010'
+
 
 export default function CustomerDashboard(props) {
-   let  id = props.user.id ;
+    const socketRef = useRef();
+
+    let  id = props.user.id ;
     const [jobes,setJobes] = useState([]);
-    const [count,setCount] = useState({
+    let [count,setCount] = useState({
         count:0
     });
 
+
+    const incrementCount = () => {
+        setCount(prevCount => {
+            return {
+                count: parseInt(prevCount.count) + 1
+            }
+        })
+    }
+    
+
+   
     useEffect(()=>{
             axios.get(`http://localhost:8010/api/jobpost/customer/${id}`).then(res =>{
                 setJobes(res.data);
                 console.log(res.data)
             });
-
-            axios.get(`http://localhost:8010/api/jobproposals/customer/${id}`).then(res =>{
-               setCount(res.data);
-                console.log(res.data);
-            });
-     },[id]);
-
+            
+            socketRef.current = io.connect(ENDPOINT);
+            socketRef.current.on('sendnotification', (notify) => {
+                console.log(notify)
+                if(notify){
+                    incrementCount()
+                }
+                
+              })
+              
+             axios.get(`http://localhost:8010/api/jobproposals/customer/${id}`).then(res =>{
+                setCount(res.data);
+                 console.log(res.data);
+             });
+     },[]);
 
     return(
         <>          

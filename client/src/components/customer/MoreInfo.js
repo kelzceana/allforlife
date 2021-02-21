@@ -58,7 +58,7 @@ export default function MoreInfo(props){
         <div>I am second div</div>
         <div>I am third div</div>
       </div>
-      <Link onClick={e => (!props.user.id || !proposalItem.provider_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.user.id}&ID2=${proposalItem.provider_id}`}>
+      <Link onClick={e => (!props.user.id || !proposalItem.provider_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.user.id}&ID2=${proposalItem.provider_id}&name=kelz222`}>
         <button type="submit">chat</button>
       </Link> 
       </div>
