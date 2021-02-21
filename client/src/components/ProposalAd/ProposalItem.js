@@ -1,12 +1,14 @@
 
 import axios from "axios";
 import {useEffect, useState} from "react";
-import ProposalForm from "./ProposalForm";
 import { Link } from 'react-router-dom';
 
 export default function ProposalItem(props){
-    console.log(props.providerId , "t=hi there")
+    
     const [sympotomes,setSymptomes]=useState([]);
+    const[show,setShow]=useState(true);
+
+    console.log("I am show" + show)
 
     //get symptomes for a specific job posting ID 
     useEffect(() => {
@@ -14,6 +16,20 @@ export default function ProposalItem(props){
           setSymptomes(res.data);     
         });      
     
+    },[]);
+
+      //check if the povider already applied to this job
+      useEffect(() => {
+      if(props && props.providerId){
+      axios.get(`http://localhost:8010/api/jobproposals/look/${props.providerId}/${props.id}`).then(res =>{
+      console.log("I am from provider proposal count" + res.data); 
+      if(res.data.length > 0) {
+      setShow(false);
+      } else{
+      setShow(true);
+      }
+      }); 
+      } 
       },[]);
   
     //show somes others informations about job posting
@@ -77,10 +93,11 @@ export default function ProposalItem(props){
                   <div className="item-budget-apply">
                       <div className="item-budget">Budget: ${props.maxprice}</div>
                       <Link onClick={e => (!props.customer_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.providerId}&ID2=${props.customer_id}&name=${props.providerUsername}`}>
-                        <button type="submit">chat</button>
-                    </Link> 
+                        <button  className="apply-active" type="submit">chat</button>
+                      </Link> 
                       <Link to={`/proposalform/${props.id}`}>
-                      <button>APPLY</button>
+                        {show && <button className="apply-active" >APPLY</button>}
+                        {!show && <button disabled className="proposal-apply-disabled">Already applied</button>}
                       </Link>
                   </div>
 
