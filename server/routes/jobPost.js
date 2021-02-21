@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { createNewPost, getSymptomes, getJobsPosting,getSymptomesByID,getJobsPostingByID, getJobsPostingByCustomerID } = require('../util/jobPostHelpers');
+const { createNewPost, getSymptomes, getJobsPosting,getSymptomesByID,getJobsPostingByID, getJobsPostingByCustomerID, dealAccept } = require('../util/jobPostHelpers');
 
 //api route
 module.exports = (db) => {
@@ -83,13 +83,19 @@ module.exports = (db) => {
 
   // api to retreive jobposting for a specific customer 
   router.get('/customer/:id', (req, res) => {
-    console.log(req.params.id);
     getJobsPostingByCustomerID(req.params.id, db)
       .then(response => {
         res.status(200).json(response);
       })
       .catch(e => res.status(400).json({e}));
   });
+
+  //api to update is_accepted to true 
+  router.post('/accepted/:id',(req, res) => {
+    dealAccept(req.params.id, db)
+    .then(response => res.status(200).json(response))
+    .catch(e => res.status(400).json({e}));
+  })
 
   return router;
 };
