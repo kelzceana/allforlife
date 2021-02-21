@@ -11,7 +11,7 @@ export default function Time(props){
       <img src={`./image/${imageName}.png`} alt={alt}></img>
       </div>
       <div className="individual-image-title">
-      <h3>{props.alt}</h3>
+      <h3 style={{font:"initial"}}>{props.alt}</h3>
       </div>
       
     </div>
