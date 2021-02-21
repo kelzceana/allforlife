@@ -18,6 +18,7 @@ const io = socketio(server, {
   }
 });
 let people = {};
+
 // socket.io
 io.on('connection', (socket) => {
   console.log("a user has connected");
@@ -25,11 +26,18 @@ io.on('connection', (socket) => {
     people[name] = socket.id;
   });
   
+  //get socket ID of every connection
   socket.emit("getID", socket.id);
+
+  //send notification
+  socket.on('notification', (response) => {
+    console.log(response);
+    io.emit("sendnotification", 1);
+  });
+
   socket.on("send message", body =>{
-    console.log(people, "peoppppp")
-    console.log(body, 'bodu')
     socket.emit("message", body);
+    console.log(body, 'body')
     io.to(people[body.receiverID]).emit("message", body);
   });
 
