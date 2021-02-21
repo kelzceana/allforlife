@@ -1,0 +1,50 @@
+
+.profile-proposals-container{
+  display: flex;
+  width: 90%;
+  background-color:transparent;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2%;
+  margin-top: 30px;
+}
+
+.profile-proposals-container .yellow-icon{
+  font-size: 1.5rem;
+}
+
+.profile-proposals-container{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  background-color:white;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2%;
+}
+.profile-proposals-container h3{
+  margin-left: 10px;
+  color: #4b5779;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-top: 2%;
+  margin-top: 10px;
+
+}
+
+
+.profile-proposals-container .proposalad-container{
+  background-color: white;
+  border :none;
+  justify-content: flex-start;
+}
+
+.profile-proposals-container .proposalad-filter{
+  margin-top: 30px;
+  width: 20%;
+  margin-right: 20px;
+}
+
+.profile-proposals-container .proposalad-list{
+  width: 80%;
+}

@@ -87,7 +87,9 @@ module.exports = (db) => {
             if (err) {
               throw err;
             }
+            res.cookie("session", loggedUser.id, {withCredentials: true});
             res.json({token});
+            
           }
         );
       })
@@ -96,6 +98,13 @@ module.exports = (db) => {
           res.status(401).json({ error: e.message });
         }
       });
+  });
+
+  router.get('/', (req, res) => {
+   
+    res.cookie('cookie', '123', {withCredentials: true})
+    res.cookie('man', '123');
+    res.send('home');
   });
   return router;
 };

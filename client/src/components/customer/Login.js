@@ -31,6 +31,7 @@ export default function Login(props) {
                     console.log("I am from user" + userData);
                     setError("");
                     props.setUser(userData.user);
+                    
                 }
             })
             .catch(err => {

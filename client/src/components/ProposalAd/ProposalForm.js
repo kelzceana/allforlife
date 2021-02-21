@@ -1,18 +1,24 @@
 import "./ProposalForm.css";
-import {useEffect, useState} from "react";
-import { useParams, Redirect } from 'react-router-dom';
+import {useEffect, useState, useRef} from "react";
+import io from 'socket.io-client';
+import { useParams } from 'react-router-dom';
 import axios from "axios";
 import ProposalItem from "./ProposalItem";
-import Home from "../Home";
+import { useHistory } from 'react-router-dom';
 
+const ENDPOINT = 'http://localhost:8010'
 
 
 
 export default function ProposalForm(props){
+    console.log(props.user.id, "props.user1")
+    const socketRef = useRef();
+    
 
     const { id } = useParams();
     const [jobe,setJobe] = useState([]);
     const [error, setError] = useState("");
+    let history = useHistory();
 
     const [state, setState]=useState({
         providerId :props.user.id,
@@ -48,12 +54,15 @@ export default function ProposalForm(props){
     },[]);
 
     function AddProposal(){
+        
         if(state.description && state.price && state.availabilityDays && state.availabilityFrom &&
             state.availabilityTo){
             axios.post(`http://localhost:8010/api/jobproposals`,state).then(res =>{
-                console.log(res.data);
+                socketRef.current = io.connect(ENDPOINT);
+                socketRef.current.emit('notification', "form submitted");
+                console.log(res.data, "proposal form");
                 setError("");
-               
+                history.push('/provider/dashboard');
             });
         } else {
             setError("Please fill all the fields !");
@@ -68,7 +77,7 @@ export default function ProposalForm(props){
             <div className="proposalform-container-title">Make an Offer for: </div>
             <div className="proposalform-separation"> </div>
             <div className="proposalform-item"> 
-               <ProposalItem id={id} {...jobe}/>
+               <ProposalItem id={id} {...jobe} />
             </div>
             <div className="proposalform-form">
                 <h3>Description <button className="yellow-icon">◣</button></h3>

@@ -14,6 +14,9 @@ import ProposalForm from "./ProposalAd/ProposalForm";
 import CustomerDashboard from './customer/CustomerDashboard';
 import CustomerProposals from './customer/CustomerProposals';
 import ProviderDashboard from './provider/ProviderDashboard';
+import Join from '../components/Chat/Join'
+import Chat from '../components/Chat/Chat'
+import MoreInfo from '../components/customer/MoreInfo'
 
 
 
@@ -68,6 +71,11 @@ function App() {
         <ProviderDashboard user={loggeduser}/> 
         :<Redirect to="/" />}
       </Route>
+      <Route path='/moreinfo/:id' exact>
+          <MoreInfo user={loggeduser} />
+        </Route>  
+      
+      <Route path='/chat'  component={Chat} />
     </Switch>
     <Footer />
   </Router>

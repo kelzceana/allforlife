@@ -144,7 +144,7 @@ export default function ProposalAd(props){
 
                  {jobesPostingData.map(job=>{
                    return(
-                    <ProposalItem  key ={job.id} {...job}/>
+                    <ProposalItem  key ={job.id} {...job} providerId={props.providerId} providerUsername={props.providerUsername}/>
                    )
                  })}
                  <div className="proposal-footer"></div>

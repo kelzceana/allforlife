@@ -5,6 +5,7 @@ import ProposalForm from "./ProposalForm";
 import { Link } from 'react-router-dom';
 
 export default function ProposalItem(props){
+    console.log(props.providerId , "t=hi there")
     const [sympotomes,setSymptomes]=useState([]);
 
     //get symptomes for a specific job posting ID 
@@ -75,6 +76,9 @@ export default function ProposalItem(props){
                   </div>
                   <div className="item-budget-apply">
                       <div className="item-budget">Budget: ${props.maxprice}</div>
+                      <Link onClick={e => (!props.customer_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.providerId}&ID2=${props.customer_id}&name=${props.providerUsername}`}>
+                        <button type="submit">chat</button>
+                    </Link> 
                       <Link to={`/proposalform/${props.id}`}>
                       <button>APPLY</button>
                       </Link>

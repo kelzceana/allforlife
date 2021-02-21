@@ -1,13 +1,52 @@
 const express = require('express');
+const socketio = require('socket.io');
+const http = require('http');
 const cookieParser = require('cookie-parser');
-const app = express();
 const PORT = 8010;
+
+
+const app = express();
+const server = http.createServer(app);
+
 const db = require("./db/dbIndex");
-//const cookieSession = require('cookie-session');
-
-
 const bodyParser = require('body-parser');
 
+const io = socketio(server, {
+  cors: {
+    origin: "http://localhost:3002",
+    methods: ["GET", "POST"]
+  }
+});
+let people = {};
+
+// socket.io
+io.on('connection', (socket) => {
+  console.log("a user has connected");
+  socket.on('join', (name) => {
+    people[name] = socket.id;
+  });
+  
+  //get socket ID of every connection
+  socket.emit("getID", socket.id);
+
+  //send notification
+  socket.on('notification', (response) => {
+    console.log(response);
+    io.emit("sendnotification", 1);
+  });
+
+  socket.on("send message", body =>{
+    socket.emit("message", body);
+    console.log(body, 'body')
+    io.to(people[body.receiverID]).emit("message", body);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user has left the chat");
+  });
+});
+
+ 
 // routes constants
 const users = require("./routes/users");
 const jobPost = require("./routes/jobPost");
@@ -29,12 +68,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: ['key1', 'key2'],
-//   maxAge: 24 * 60 * 60 * 1000, // 24 hours
-//   secure:false
-// }));
 
 app.use(cookieParser());
 
@@ -46,6 +79,6 @@ app.use("/api/jobproposals", jobproposal(db));
 
 
 //app listening
-app.listen(PORT, ()=>{
+server.listen(PORT, ()=>{
   console.log(`app is listening at port ${PORT}`);
 });
