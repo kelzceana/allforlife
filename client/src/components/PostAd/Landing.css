@@ -11,18 +11,18 @@
   background-color:rgb(243, 241, 241);
   background-image: url('../../images/laptop-mockup2.png');
   background-size: cover;
-  width: 100%;
+  width: 100vw;
   height: 140%;
   border: solid 0.5px rgb(77, 76, 76);
 }
 .landing-container-box{
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: auto;
   margin-top: 160px;
-  margin-left: 57%;
-  margin-right: 0px;
-  width: 601px;
+  margin-left: 50%;
+  margin-right: 4%;
+  width: auto;
   margin-bottom:70px;
 }
 .landing-container-box h2{
@@ -90,16 +90,14 @@
 }
 
 .myself-desc img{
-  margin-left: -3px;
-  width: 221px;
+  width: 100%;
 }
 
 
 .myself-title{
   color: gray;
   font-size: 1.2rem;
-  padding-left: 30%;
-  margin-bottom: 10px;
+  text-align: center;
 }
 .myself-text{
   color: gray;
