@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { createNewProposal, getNumberOfProposalsByCustomerID, getProposalsByPrososalID, getProposalsByCustomerID } = require('../util/jobProposalsHelpers');
+const { createNewProposal, getNumberOfProposalsByCustomerID, getProposalsByPrososalID, getProposalsByCustomerID, getProposalsForProvider } = require('../util/jobProposalsHelpers');
 
 //api route
 module.exports = (db) => {
@@ -22,20 +22,16 @@ module.exports = (db) => {
     };
  
     createNewProposal(jobProposalObj, db)
-      .then(response => {
-        res.json(response);
-      })
-      .catch(e => res.json("jobproposal error"));
+      .then(response => res.status(200).json(response))
+      .catch(e => res.status(400).json("jobproposal error"));
       
   });
 
   //route to get the number of proposals for a specific customer
   router.get('/customer/:id', (req, res) => {
     getNumberOfProposalsByCustomerID(req.params.id, db)
-      .then(response => {
-        res.json(response);
-      })
-      .catch(e => res.json("error"));
+      .then(response => res.status(200).json(response))
+      .catch(e => res.status(400).json("error"));
   });
 
   //route to get the proposal and provider information for a specific customer
@@ -52,5 +48,12 @@ module.exports = (db) => {
       .catch(e => res.status(400).json({message:"Error"}));
 
   });
+  //route to check if the provider has a proposal for a specific job posting
+  router.get('/look/:providerId/:jobPostingId', (req,res) => {
+    getProposalsForProvider(req.params.providerId,req.params.jobPostingId,db)
+    .then(response =>res.status(200).json(response))
+    .catch(e => res.status(400).json({message:"Error"}));
+  });
+
   return router;
 };
