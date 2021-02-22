@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
     console.log(response);
     io.emit("sendnotification", 1);
   });
-
+ 
   socket.on("send message", body =>{
     socket.emit("message", body);
     console.log(body, 'body')
