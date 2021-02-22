@@ -19,7 +19,7 @@ export default function ProviderDashboard (props) {
         </div>
         <div className="profile-proposals-container">
             <h3>Notifications <span className="yellow-icon">◣</span> </h3>
-            {/*need to map notifications here*/} <NotificationItem />
+            {/*need to map notifications here*/} <NotificationItem  providerId={props.user.id}/>
         </div>
 
     </section>

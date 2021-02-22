@@ -30,6 +30,7 @@ export default function MoreInfo(props){
   const dealAccept = () => {
     axios.post(`http://localhost:8010/api/jobpost/accepted/${proposalItem.job_posting_id}`)
     .then(() => {
+      alert("Thanks for choosing this person");
       history.push('/customer/dashboard');
     })
   }
