@@ -1,15 +1,31 @@
+.chat-card {
+  height: 44vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .chat-container{
   display: flex;
   flex-direction: column;
-  padding:30px
+  padding:30px;
+  align-items: center;
 }
 
+.chat-form {
+  height: 10px;
+}
+.chat-textarea {
+  display: flex;
+  margin-bottom: 10px;
+}
 .container {
   border: 2px solid #dedede;
   background-color: #f1f1f1;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
+  width:34rem;
 }
 
 .darker {
