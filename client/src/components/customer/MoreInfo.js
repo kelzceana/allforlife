@@ -1,7 +1,7 @@
 import './MoreInfo.css';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useParams, Link, useHistory} from 'react-router-dom';
+import {useParams, Link, useHistory, Redirect} from 'react-router-dom';
 
 
 export default function MoreInfo(props){
@@ -21,17 +21,15 @@ export default function MoreInfo(props){
       }
     })
   },[props.user.id])
-
-  // function handleEvent(){
-  //   axios.post(`http://localhost:8010/api/notifications/${proposalItem.id}`)
-  //   .then(res => console.log(res.data));
-  // } 
+  
 
   const dealAccept = () => {
     axios.post(`http://localhost:8010/api/jobpost/accepted/${proposalItem.job_posting_id}`)
     .then(() => {
-      alert("Thanks for choosing this person");
-      history.push('/customer/dashboard');
+      alert(`Thank you for choosing ${proposalItem.first_name}.
+      Please proceed to  All for Life home page to finish your payment`);
+      history.push('/allforlife');
+      
     })
   }
 

@@ -76,6 +76,10 @@ function App() {
       </Route>  
       
       <Route path='/chat'  component={Chat} />
+      <Route path='/allforlife' component={() => { 
+        window.location.href = 'https://allforlife.com/'; 
+        return null;
+      }}/>
     </Switch>
     <Footer />
   </Router>
