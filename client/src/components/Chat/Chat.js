@@ -56,6 +56,7 @@ export default function Chat({ location }){
     })
     socketRef.current.emit('join', ID1)
     socketRef.current.on('message', (message) => {
+      console.log(message, "her her")
       receiveMessage(message)
       setReceiverName(message.sendername !== name? message.sendername : null)
     })
@@ -64,7 +65,7 @@ export default function Chat({ location }){
 
   //JSX
   return(
-    <div className="card">
+    <div className="chat-card">
       <div className="chat-container">
         {messages.map((message, index) => {
           if (message.id === yourID) {
@@ -74,8 +75,8 @@ export default function Chat({ location }){
      
         })}
       </div>
-      <form onSubmit={sendMessage}>
-        <div>
+      <form onSubmit={sendMessage} className="chat-form">
+        <div className="chat-textarea">
           <TextField
             name="message"
             onChange={handleChange}
