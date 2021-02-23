@@ -100,11 +100,11 @@ module.exports = (db) => {
       });
   });
 
-  router.get('/', (req, res) => {
+  /*router.get('/', (req, res) => {
    
     res.cookie('cookie', '123', {withCredentials: true})
     res.cookie('man', '123');
     res.send('home');
-  });
+  });*/
   return router;
 };

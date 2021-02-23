@@ -85,9 +85,10 @@ CREATE TABLE job_proposals(
 );
 ​
 CREATE TABLE messages(
-   id SERIAL PRIMARY KEY NOT NULL,
-   provider_id uuid REFERENCES providers(id) ON DELETE CASCADE,
-   customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
-   type VARCHAR(255) DEFAULT NULL,
-   message TEXT DEFAULT NULL
+    id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
+    job_proposal_id INTEGER REFERENCES job_proposals(id) ON DELETE CASCADE,
+    customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
+    provider_id uuid REFERENCES providers(id) ON DELETE CASCADE,
+    type VARCHAR(255) NOT NULL,
+    message TEXT DEFAULT NULL
 );
