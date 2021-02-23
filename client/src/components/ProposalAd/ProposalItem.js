@@ -8,8 +8,6 @@ export default function ProposalItem(props){
     const [sympotomes,setSymptomes]=useState([]);
     const[show,setShow]=useState(true);
 
-    console.log("I am show" + show)
-
     //get symptomes for a specific job posting ID 
     useEffect(() => {
         axios.get(`http://localhost:8010/api/jobpost/symptomes/${props.id}`).then(res =>{

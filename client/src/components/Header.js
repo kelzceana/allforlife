@@ -35,8 +35,8 @@ export default function Header(props) {
           }  
           <div className="nav-home-icon">
             <Link to="/">
-              <FcHome  style={{height:'2em', 
-                width:'2em', 
+              <FcHome  style={{height:'4.5em', 
+                width:'2.5em', 
                 paddingBottom:'0.3em',
                 alignContent:'center'
                 }}

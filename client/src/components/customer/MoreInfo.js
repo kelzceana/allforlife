@@ -63,7 +63,7 @@ export default function MoreInfo(props){
                     Offer  <input type="text"  value={"0.00"} disabled/> 
                   </div>
                   <div className="offers-chat-button" >
-                    <Link onClick={e => (!props.user.id || !proposalItem.provider_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.user.id}&ID2=${proposalItem.provider_id}&name=kelz222`}>
+                    <Link onClick={e => (!props.user.id || !proposalItem.provider_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.user.id}&ID2=${proposalItem.provider_id}&name=${props.user.userName}`}>
                       <button type="submit">chat</button>
                     </Link> 
                   </div> 

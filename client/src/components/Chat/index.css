@@ -46,3 +46,70 @@
   float: left;
   color: #999;
 }
+.chat-container{
+  background-color: white;
+
+}
+.chat-header{
+  
+  width: 100%;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  height: 35px;
+  background-color: #4b5779;
+  border: 1px solid #4b5779;
+}
+
+.chat-card01{
+  background-image: url("../../images/image2.jpg");
+  background-size: cover;
+  
+}
+
+.chat-card{
+  padding-top: 50px;
+  padding-left: 25%;
+  padding-bottom: 20px;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+}
+
+.chat-form{
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+ 
+}
+.chat-form .textfield{
+  width: 100%;
+  margin-bottom: 2%;
+}
+.chat-form button{
+  background-color:  #f5c107;
+  border: solid 2px #f5c107;
+  color:white;
+  font-size: 1.5rem;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 30%;
+  height: 25%;
+}
+@media screen and (max-width: 950px) {
+  .chat-card{
+    margin-left: 15%;
+    width: 70%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .chat-card{
+    margin-left: 5%;
+    width: 70%;
+  }
+}
