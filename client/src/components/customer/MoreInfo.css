@@ -100,7 +100,7 @@
   padding-top:5px;
   padding-bottom:5px;
 }
- .offers-accept button{
+ .offers-accept {
   cursor:pointer;
   background:#f5c107;
   border:1px solid #f5c107;

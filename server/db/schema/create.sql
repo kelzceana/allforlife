@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS job_postings CASCADE;
 DROP TABLE IF EXISTS symptomes CASCADE;
 DROP TABLE IF EXISTS symptomes_look_up CASCADE;
 DROP TABLE IF EXISTS job_proposals CASCADE;
-​
+​DROP TABLE IF EXISTS messages CASCADE;
 ​
 CREATE TABLE customers(
     id SERIAL PRIMARY KEY NOT NULL,
@@ -84,3 +84,11 @@ CREATE TABLE job_proposals(
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 ​
+CREATE TABLE messages(
+    id uuid PRIMARY KEY DEFAULT UUID_GENERATE_V4(),
+    job_proposal_id INTEGER REFERENCES job_proposals(id) ON DELETE CASCADE,
+    customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
+    provider_id uuid REFERENCES providers(id) ON DELETE CASCADE,
+    type VARCHAR(255) NOT NULL,
+    message TEXT DEFAULT NULL
+);

@@ -2,7 +2,7 @@
   background-color:#4b5779;
   background-size: cover;
   width: 100vw;
-  height: 50px;
+  height: 70px;
   margin: 0px;
   padding: 0px;
   display: flex;
@@ -21,8 +21,8 @@
 }
 
 .nav-div-image img{
-  width: 70%;
-  height:100%;
+  width: 60%;
+  height:120%;
 }
 
 .nav-links{

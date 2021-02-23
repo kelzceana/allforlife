@@ -1,7 +1,7 @@
 import './MoreInfo.css';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useParams, Link, useHistory} from 'react-router-dom';
+import {useParams, Link, useHistory, Redirect} from 'react-router-dom';
 
 
 export default function MoreInfo(props){
@@ -21,16 +21,14 @@ export default function MoreInfo(props){
       }
     })
   },[props.user.id])
-
-  // function handleEvent(){
-  //   axios.post(`http://localhost:8010/api/notifications/${proposalItem.id}`)
-  //   .then(res => console.log(res.data));
-  // } 
+  
 
   const dealAccept = () => {
     axios.post(`http://localhost:8010/api/jobpost/accepted/${proposalItem.job_posting_id}`)
     .then(() => {
-      history.push('/customer/dashboard');
+      alert(`Thank you for choosing ${proposalItem.first_name}.
+      Please proceed to  All for Life home page to finish your payment`);
+      window.location.href = 'https://allforlife.com/'; 
     })
   }
 
@@ -65,7 +63,7 @@ export default function MoreInfo(props){
                     Offer  <input type="text"  value={"0.00"} disabled/> 
                   </div>
                   <div className="offers-chat-button" >
-                    <Link onClick={e => (!props.user.id || !proposalItem.provider_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.user.id}&ID2=${proposalItem.provider_id}&name=kelz222`}>
+                    <Link onClick={e => (!props.user.id || !proposalItem.provider_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.user.id}&ID2=${proposalItem.provider_id}&name=${props.user.userName}`}>
                       <button type="submit">chat</button>
                     </Link> 
                   </div> 
