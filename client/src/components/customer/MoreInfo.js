@@ -28,8 +28,7 @@ export default function MoreInfo(props){
     .then(() => {
       alert(`Thank you for choosing ${proposalItem.first_name}.
       Please proceed to  All for Life home page to finish your payment`);
-      history.push('/allforlife');
-      
+      window.location.href = 'https://allforlife.com/'; 
     })
   }
 
