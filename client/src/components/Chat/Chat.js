@@ -9,7 +9,7 @@ import ProviderChat from './ProviderChat'
 import CustomerChat from './CustomerChat'
 export default function Chat({ location }){
   const {ID1, ID2, name} = queryString.parse(location.search);
-  const job_proposal_id = 15;
+  const job_proposal_id = 16;
  
   const [yourID, setYourID] = useState();
   const [receiverName, setReceiverName] = useState("")

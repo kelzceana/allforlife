@@ -60,7 +60,7 @@ export default function MoreInfo(props){
                   {proposalItem.first_name} {proposalItem.last_name} {proposalItem.degree}, {proposalItem.location}
                   </p>
                   <div className="offers-chat"> 
-                    Offer  <input type="text"  value={"0.00"} disabled/> 
+                    Offer  <input type="text"  value={proposalItem.price} disabled/> 
                   </div>
                   <div className="offers-chat-button" >
                     <Link onClick={e => (!props.user.id || !proposalItem.provider_id) ? e.preventDefault() : null}   to ={`/chat/?ID1=${props.user.id}&ID2=${proposalItem.provider_id}&name=${props.user.userName}`}>
