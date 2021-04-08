@@ -37,7 +37,6 @@ io.on('connection', (socket) => {
 
   socket.on("send message", body =>{
     socket.emit("message", body);
-    console.log(body, 'body')
     io.to(people[body.receiverID]).emit("message", body);
   });
 

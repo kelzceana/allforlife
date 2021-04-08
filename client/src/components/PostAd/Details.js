@@ -42,7 +42,8 @@ export default function Details(props) {
             }
         } else {
             const arr = newSymptomes.filter(symptome => symptome !== evt.target.name);
-            props.addSymptomes( arr);
+            const arrid = newSymptomesId.filter(symptomeId => symptomeId !== evt.target.id);
+            props.addSymptomes( arr,arrid);
         }
     }
         

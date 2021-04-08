@@ -65,6 +65,7 @@
 .chat-card01{
   background-image: url("../../images/image2.jpg");
   background-size: cover;
+  height:48vw;
   
 }
 

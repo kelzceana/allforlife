@@ -2,7 +2,8 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-
+const config = require("../config/keys");
+const auth = require("../middleware/auth");
 const { getUserWithUserName, addUser } = require('../util/customerHelpers');
 
 //api routes
@@ -41,7 +42,7 @@ module.exports = (db) => {
           };
           //res.json(payload);
           jwt.sign(
-            payload, 
+            payload,
             "allforlife",
             {expiresIn: 3600 * 24},
             (err, token) => {
@@ -80,14 +81,11 @@ module.exports = (db) => {
         };
         //sending tokens
         jwt.sign(
-          payload, 
-          "allforlife",
+          payload,
+          config.jwtSecret,
           {expiresIn: 3600 * 24},
           (err, token) => {
-            if (err) {
-              throw err;
-            }
-            res.cookie("session", loggedUser.id, {withCredentials: true});
+            if (err) throw err;
             res.json({token});
             
           }
@@ -100,11 +98,15 @@ module.exports = (db) => {
       });
   });
 
-  /*router.get('/', (req, res) => {
-   
-    res.cookie('cookie', '123', {withCredentials: true})
-    res.cookie('man', '123');
-    res.send('home');
-  });*/
+  //get user protected route
+
+  router.get('/', auth, (req, res) => {
+    try {
+      res.json(req.user);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+ 
   return router;
 };

@@ -21,7 +21,7 @@ export default function CustomerDashboard(props) {
     const incrementCount = () => {
         setCount(prevCount => {
             return {
-                count: parseInt(prevCount.count) + 1
+                count: parseInt(count.count) + 1
             }
         })
     }

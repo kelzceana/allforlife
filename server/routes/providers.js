@@ -1,7 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
+const config = require("../config/keys");
 const jwt = require('jsonwebtoken');
+const auth = require("../middleware/auth");
 
 const { getProviderWithUserName, addProvider, checkId } = require('../util/providerHelpers');
 
@@ -9,7 +11,7 @@ const { getProviderWithUserName, addProvider, checkId } = require('../util/provi
 
 module.exports = (db) => {
   //route to check if provider exists
-  router.get('/:id', (req, res) => {
+  router.get('/:id', auth, (req, res) => {
     const id = req.params.id;
     if (!id) {
       res.status(400).json({message:"Login as a provider to apply"});
@@ -60,7 +62,7 @@ module.exports = (db) => {
           //jwt token
           jwt.sign(
             payload,
-            "allforlife",
+            config.jwtSecret,
             {expiresIn: 3600 * 24 },
             (err, token) => {
               if (err) {
@@ -80,7 +82,7 @@ module.exports = (db) => {
   });
   
   //login route
-  router.post('/login', (req, res) => {
+  router.post('/login',(req, res) => {
     const {userName, password} = req.body;
     getProviderWithUserName(userName, db)
       .then(user => {
@@ -98,7 +100,7 @@ module.exports = (db) => {
           };
           jwt.sign(
             payload,
-            "allforlife",
+            config.jwtSecret,
             {expiresIn: 3600 * 24 },
             (err, token) => {
               if (err) {
@@ -116,7 +118,17 @@ module.exports = (db) => {
         }
       });
   });
-  
+
+  // protected route
+  router.get('/', auth, (req, res) => {
+    try {
+      res.json(req.user);
+    } catch (err) {
+      console.error(err);
+    }
+   
+  });
+
   return router;
 };
 
